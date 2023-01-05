@@ -8,9 +8,10 @@ const StyledTitle = styled("span")(() => ({
 		height: "1em",
 		// TODO: Width should be inherited from parent.
 		width: "30px",
-		marginLeft: "-4px",
-		backgroundColor: "red",
+		marginLeft: "-6px",
+		backgroundColor: "rgba(0, 194, 255, 0.21)",
 		zIndex: "-1",
+		borderRadius: "2px",
 	}
 }))
 
