@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import Box from '@mui/material/Box';
 import { Grid, Paper, Skeleton, Stack, styled } from '@mui/material';
 import { Container } from '@mui/system';
-import { Step } from '../../enums/Step';
 import GitReportTitle from './GitReportTitle/GitReportTitle';
 import SubTitle from './SubTitle/SubTitle';
 import SectionTitle from '../../components/SectionTitle/SectionTitle';
