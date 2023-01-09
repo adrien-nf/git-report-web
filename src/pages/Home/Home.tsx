@@ -66,6 +66,6 @@ export default function Home() {
 					</Stack>
 				</Stack>
 			</Container>
-		</BoxContainer >
+		</BoxContainer>
 	);
 }
