@@ -6,6 +6,7 @@ import GitReportTitle from './GitReportTitle/GitReportTitle';
 import SubTitle from './SubTitle/SubTitle';
 import SectionTitle from '../../components/SectionTitle/SectionTitle';
 import CommandLine from './CommandLine/CommandLine';
+import Step from './Step/Step';
 
 const BoxContainer = styled(Box)(({ theme }) => ({
 	paddingTop: theme.spacing(5),
@@ -60,6 +61,13 @@ export default function Home() {
 					</Stack>
 					<Stack spacing={2}>
 						<SectionTitle>How does it work?</SectionTitle>
+						<Stack direction="row" spacing={12}>
+							<Step number={1} title="Execute the script">It will parse your local commits and send them to the navigator</Step>
+							<Step number={2} title="Configure your report">Manage the time range, desired directories and layout of the report</Step>
+							<Step number={3} title="Generate it">Choose the format that suits you. Markdown, pdf or simply text.</Step>
+						</Stack>
+						<Stack direction="row">
+						</Stack>
 					</Stack>
 					<Stack spacing={2}>
 						<SectionTitle>Watch it in action!</SectionTitle>
@@ -72,6 +80,6 @@ export default function Home() {
 					</Stack>
 				</Stack>
 			</Container>
-		</BoxContainer>
+		</BoxContainer >
 	);
 }
