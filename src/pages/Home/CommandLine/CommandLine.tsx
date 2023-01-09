@@ -1,4 +1,6 @@
 import { Paper, styled } from "@mui/material"
+import { useContext } from "react"
+import { DataContext } from "../../../contexts/DataContext/DataContext"
 
 const BlackPaper = styled(Paper)(({ theme }) => ({
 	backgroundColor: theme.palette.common.black,
@@ -21,12 +23,12 @@ const BlackPaper = styled(Paper)(({ theme }) => ({
 	}
 }))
 
-export default function CommandLine(props: {
-	children: React.ReactNode
-}) {
+export default function CommandLine() {
+	const { eventId } = useContext(DataContext);
+
 	return (
 		<BlackPaper>
-			<span>sh -c "$(curl -fsSL https://flash.vps.webdock.cloud/api/script/<span style={{ color: "#9AE7FF" }}>{props.children}</span>)"</span>
+			<span>sh -c "$(curl -fsSL https://flash.vps.webdock.cloud/api/script/<span style={{ color: "#9AE7FF" }}>{eventId}</span>)"</span>
 		</BlackPaper>
 	)
 }

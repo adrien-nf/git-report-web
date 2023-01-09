@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import Box from '@mui/material/Box';
 import { Grid, Skeleton, Stack, styled } from '@mui/material';
 import { Container } from '@mui/system';
@@ -14,27 +14,6 @@ const BoxContainer = styled(Box)(({ theme }) => ({
 }))
 
 export default function Home() {
-
-	const [eventId, setEventId] = useState("66898b08-cf57-df04-060d-dfe35745d593");
-
-	useEffect(() => {
-		const sse = new EventSource("/api/see");
-
-		sse.addEventListener("init", (event) => {
-			setEventId(event.lastEventId);
-		})
-
-		sse.onerror = (e) => {
-			console.log(e)
-
-			sse.close();
-		}
-
-		return () => {
-			sse.close();
-		};
-	}, []);
-
 	return (
 		<BoxContainer>
 			<Container>
@@ -57,7 +36,7 @@ export default function Home() {
 					</Stack>
 					<Stack spacing={2}>
 						<SectionTitle>Get started now !</SectionTitle>
-						<CommandLine>{eventId}</CommandLine>
+						<CommandLine />
 					</Stack>
 					<Stack spacing={2}>
 						<SectionTitle>How does it work?</SectionTitle>
