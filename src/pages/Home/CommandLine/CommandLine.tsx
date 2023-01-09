@@ -13,13 +13,11 @@ const BlackPaper = styled(Paper)(({ theme }) => ({
 	"&::after": {
 		content: '"That\'s you"',
 		fontFamily: "Caveat",
-		marginTop: "30px",
-		marginLeft: "4em",
+		fontSize: "1.5em",
+		transform: "rotate(-3.47deg)",
+		marginTop: "1em",
+		marginLeft: "-3em",
 		position: "absolute",
-		"&::before": {
-			content: '"sa"',
-			backgroundColor: "red",
-		}
 	}
 }))
 
@@ -28,7 +26,7 @@ export default function CommandLine(props: {
 }) {
 	return (
 		<BlackPaper>
-			<span>{props.children}</span>
+			<span>sh -c "$(curl -fsSL https://flash.vps.webdock.cloud/api/script/<span style={{ color: "#9AE7FF" }}>{props.children}</span>)"</span>
 		</BlackPaper>
 	)
 }

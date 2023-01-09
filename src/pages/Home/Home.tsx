@@ -15,10 +15,10 @@ const BoxContainer = styled(Box)(({ theme }) => ({
 
 export default function Home() {
 
-	const [eventId, setEventId] = useState("");
+	const [eventId, setEventId] = useState("66898b08-cf57-df04-060d-dfe35745d593");
 
 	useEffect(() => {
-		const sse = new EventSource("http://localhost:8000");
+		const sse = new EventSource("/api/see");
 
 		sse.addEventListener("init", (event) => {
 			setEventId(event.lastEventId);
@@ -40,12 +40,12 @@ export default function Home() {
 			<Container>
 				<Stack direction="column" spacing={8}>
 					<Stack direction="row">
-						<Grid container spacing={18}>
-							<Grid item xs={6}>
+						<Grid container columnSpacing={18} rowSpacing={2}>
+							<Grid item xs={12} md={6}>
 								<GitReportTitle />
 								<SubTitle>Introducing a new way to analyze and report your Git activity. With our command-line script, you can quickly generate detailed reports of your commits. Easily see what you worked on and how much time you spent on it!</SubTitle>
 							</Grid>
-							<Grid item xs={6}>
+							<Grid item xs={12} md={6}>
 								<Skeleton variant="text" width="33%" sx={{ fontSize: '1rem' }} />
 								<Skeleton variant="text" sx={{ fontSize: '1rem' }} />
 								<Skeleton variant="text" sx={{ fontSize: '1rem' }} />
@@ -57,17 +57,24 @@ export default function Home() {
 					</Stack>
 					<Stack spacing={2}>
 						<SectionTitle>Get started now !</SectionTitle>
-						<CommandLine>sh -c "$(curl -fsSL https://flash.vps.webdock.cloud/api/script/{eventId})"</CommandLine>
+						<CommandLine>{eventId}</CommandLine>
 					</Stack>
 					<Stack spacing={2}>
 						<SectionTitle>How does it work?</SectionTitle>
-						<Stack direction="row" spacing={12}>
-							<Step number={1} title="Execute the script">It will parse your local commits and send them to the navigator</Step>
-							<Step number={2} title="Configure your report">Manage the time range, desired directories and layout of the report</Step>
-							<Step number={3} title="Generate it">Choose the format that suits you. Markdown, pdf or simply text.</Step>
-						</Stack>
-						<Stack direction="row">
-						</Stack>
+						<Box>
+
+							<Grid container columnSpacing={12} rowSpacing={2}>
+								<Grid item xs={12} md={4}>
+									<Step number={1} title="Execute the script">It will parse your local commits and send them to the navigator</Step>
+								</Grid>
+								<Grid item xs={12} md={4}>
+									<Step number={2} title="Configure your report">Manage the time range, desired directories and layout of the report</Step>
+								</Grid>
+								<Grid item xs={12} md={4}>
+									<Step number={3} title="Generate it">Choose the format that suits you. Markdown, pdf or simply text.</Step>
+								</Grid>
+							</Grid>
+						</Box>
 					</Stack>
 					<Stack spacing={2}>
 						<SectionTitle>Watch it in action!</SectionTitle>
