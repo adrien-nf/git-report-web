@@ -13,6 +13,12 @@ const darkTheme = createTheme({
 		},
 		mode: 'dark',
 	},
+	typography: {
+		fontFamily: [
+			"Roboto",
+			'Caveat',
+		].join(','),
+	}
 });
 
 const root = ReactDOM.createRoot(

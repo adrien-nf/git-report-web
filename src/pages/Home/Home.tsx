@@ -1,13 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import Box from '@mui/material/Box';
-import { Grid, Paper, Skeleton, Stack, styled } from '@mui/material';
+import { Grid, Skeleton, Stack, styled } from '@mui/material';
 import { Container } from '@mui/system';
 import GitReportTitle from './GitReportTitle/GitReportTitle';
 import SubTitle from './SubTitle/SubTitle';
 import SectionTitle from '../../components/SectionTitle/SectionTitle';
+import CommandLine from './CommandLine/CommandLine';
 
 const BoxContainer = styled(Box)(({ theme }) => ({
-	paddingTop: theme.spacing(5)
+	paddingTop: theme.spacing(5),
+	paddingBottom: theme.spacing(5),
 }))
 
 export default function Home() {
@@ -52,17 +54,22 @@ export default function Home() {
 							</Grid>
 						</Grid>
 					</Stack>
-					<Box>
-						<Stack spacing={2}>
-							<SectionTitle>Get started now !</SectionTitle>
-							<Paper elevation={3} style={{
-								flexGrow: 1,
-								padding: 8
-							}}>
-								<span>sh -c "$(curl -fsSL https://flash.vps.webdock.cloud/api/script/{eventId})"</span>
-							</Paper>
-						</Stack>
-					</Box>
+					<Stack spacing={2}>
+						<SectionTitle>Get started now !</SectionTitle>
+						<CommandLine>sh -c "$(curl -fsSL https://flash.vps.webdock.cloud/api/script/{eventId})"</CommandLine>
+					</Stack>
+					<Stack spacing={2}>
+						<SectionTitle>How does it work?</SectionTitle>
+					</Stack>
+					<Stack spacing={2}>
+						<SectionTitle>Watch it in action!</SectionTitle>
+						<iframe
+							src="https://www.youtube.com/embed/wnhvanMdx4s"
+							style={{ border: 0, aspectRatio: 16 / 9 }}
+							title="YouTube video player"
+							allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+							allowFullScreen></iframe>
+					</Stack>
 				</Stack>
 			</Container>
 		</BoxContainer>
