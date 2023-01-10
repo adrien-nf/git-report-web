@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Box from '@mui/material/Box';
 import { Grid, Skeleton, Stack, styled } from '@mui/material';
 import { Container } from '@mui/system';
@@ -41,7 +41,6 @@ export default function Home() {
 					<Stack spacing={2}>
 						<SectionTitle>How does it work?</SectionTitle>
 						<Box>
-
 							<Grid container columnSpacing={12} rowSpacing={2}>
 								<Grid item xs={12} md={4}>
 									<Step number={1} title="Execute the script">It will parse your local commits and send them to the navigator</Step>

@@ -1,38 +1,56 @@
 import React, { createContext, useEffect, useState } from 'react';
 import Papa, { ParseRemoteConfig } from 'papaparse';
 import { useNavigate } from 'react-router-dom';
+import { Commit } from '../../types/Commit';
+import { ReportData } from '../../types/ReportData';
 
 type EventId = string | undefined;
 
-type Commit = {
-	id: string,
-	date: string,
-	description: string,
-};
-
 interface DataContextSpecs {
 	eventId: EventId,
-	commits: Commit[],
+	reportData: ReportData,
+}
+
+const emptyReportData: ReportData = {
+	projects: new Map(),
 }
 
 export const DataContext = createContext<DataContextSpecs>({
 	eventId: undefined,
-	commits: [],
+	reportData: emptyReportData,
 });
 
-const mapData = (data: any[]): Commit[] => {
-	return data.map(e => ({
-		id: e[1],
-		date: e[2],
-		description: e[3]
-	}));
+const parseCommit = (e: any): Commit => ({
+	id: e[1],
+	username: e[2],
+	email: e[3],
+	date: e[4],
+	description: e[5]
+})
+
+const mapData = (data: any[]): ReportData => {
+	const reportData: ReportData = {
+		projects: new Map(),
+	}
+
+	data.forEach(e => {
+		const projectName = e[0];
+		if (!reportData.projects.has(projectName)) reportData.projects.set(projectName, {
+			name: projectName,
+			commits: [],
+		})
+
+		reportData.projects.get(projectName)!.commits.push(parseCommit(e));
+	})
+
+	return reportData;
 }
 
 export function DataContextProvider({ children }: { children: React.ReactNode }): JSX.Element {
 	const navigate = useNavigate();
 
-	const [eventId, setEventId] = useState<EventId>("66898b08-cf57-df04-060d-dfe35745d593");
-	const [commits, setCommits] = useState<Commit[]>([]);
+	const [eventId, setEventId] = useState<EventId>(undefined);
+	const [reportData, setReportData] = useState<ReportData>(emptyReportData);
 
 	useEffect(() => {
 		const sse = new EventSource("/api/see");
@@ -48,26 +66,24 @@ export function DataContextProvider({ children }: { children: React.ReactNode })
 				download: true,
 				skipEmptyLines: true,
 				complete(results) {
-					setCommits(mapData(results.data));
+					setReportData(mapData(results.data));
 					return navigate("/report");
 				},
 			} as ParseRemoteConfig);
 		});
 
 		sse.onerror = (e) => {
-			console.log(e)
-
 			sse.close();
 		}
 
 		return () => {
 			sse.close();
 		};
-	}, []);
+	}, [navigate]);
 
 	const contextValue = {
 		eventId,
-		commits,
+		reportData,
 	};
 
 	return (
