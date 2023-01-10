@@ -2,22 +2,18 @@ import React, { createContext, useEffect, useState } from 'react';
 import Papa, { ParseRemoteConfig } from 'papaparse';
 import { useNavigate } from 'react-router-dom';
 import { Commit } from '../../types/Commit';
-import { ReportData } from '../../types/ReportData';
+import { ProjectMap } from '../../types/ReportData';
 
 type EventId = string | undefined;
 
 interface DataContextSpecs {
 	eventId: EventId,
-	reportData: ReportData,
-}
-
-const emptyReportData: ReportData = {
-	projects: new Map(),
+	projects: ProjectMap,
 }
 
 export const DataContext = createContext<DataContextSpecs>({
 	eventId: undefined,
-	reportData: emptyReportData,
+	projects: new Map(),
 });
 
 const parseCommit = (e: any): Commit => ({
@@ -28,29 +24,27 @@ const parseCommit = (e: any): Commit => ({
 	description: e[5]
 })
 
-const mapData = (data: any[]): ReportData => {
-	const reportData: ReportData = {
-		projects: new Map(),
-	}
+const mapData = (data: any[]): ProjectMap => {
+	const projects = new Map();
 
 	data.forEach(e => {
 		const projectName = e[0];
-		if (!reportData.projects.has(projectName)) reportData.projects.set(projectName, {
+		if (!projects.has(projectName)) projects.set(projectName, {
 			name: projectName,
 			commits: [],
 		})
 
-		reportData.projects.get(projectName)!.commits.push(parseCommit(e));
+		projects.get(projectName)!.commits.push(parseCommit(e));
 	})
 
-	return reportData;
+	return projects;
 }
 
 export function DataContextProvider({ children }: { children: React.ReactNode }): JSX.Element {
 	const navigate = useNavigate();
 
 	const [eventId, setEventId] = useState<EventId>(undefined);
-	const [reportData, setReportData] = useState<ReportData>(emptyReportData);
+	const [projects, setProjects] = useState<ProjectMap>(new Map());
 
 	useEffect(() => {
 		const sse = new EventSource("/api/see");
@@ -66,7 +60,7 @@ export function DataContextProvider({ children }: { children: React.ReactNode })
 				download: true,
 				skipEmptyLines: true,
 				complete(results) {
-					setReportData(mapData(results.data));
+					setProjects(mapData(results.data));
 					return navigate("/report");
 				},
 			} as ParseRemoteConfig);
@@ -83,7 +77,7 @@ export function DataContextProvider({ children }: { children: React.ReactNode })
 
 	const contextValue = {
 		eventId,
-		reportData,
+		projects,
 	};
 
 	return (

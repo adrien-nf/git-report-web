@@ -1,16 +1,15 @@
 import { Stack } from "@mui/material";
-import { useContext } from "react";
-import { DataContext } from "../../../contexts/DataContext/DataContext";
 import Project from "./Project/Project";
 import { Project as TypeProject } from "../../../types/Project";
+import { ReportData } from "../../../types/ReportData";
 
-export default function Report() {
-	const { reportData } = useContext(DataContext);
-
+export default function Report(props: {
+	reportData: ReportData,
+}) {
 	return (
 		<Stack spacing={2}>
 			{
-				(Array.from(reportData.projects.values(), (project: TypeProject) => <Project project={project} />))
+				(Array.from(props.reportData.projects.values(), ((project: TypeProject) => <Project project={project} />)))
 			}
 		</Stack>
 	)
