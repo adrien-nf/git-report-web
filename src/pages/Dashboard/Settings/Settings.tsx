@@ -40,7 +40,7 @@ export default function Settings(props: {
 
 			return newReportData;
 		})
-	}, [commits])
+	}, [commits, props])
 
 	return (
 		<Stack spacing={5}>

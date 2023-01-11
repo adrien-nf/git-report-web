@@ -40,34 +40,34 @@ const mapData = (data: any[]): ProjectMap => {
 		projects.get(projectName)!.commits += "\n" + parseCommit(e);
 	})
 
-	projects.set("Test", {
-		commits: "qsdq\n",
-		name: "Salut",
-		options: {
-			shown: true,
-		}
-	})
-	projects.set("SQSD", {
-		commits: "",
-		name: "Salqdsut",
-		options: {
-			shown: true,
-		}
-	})
-	projects.set("SQSssD", {
-		commits: "",
-		name: "Salqdqqqsut",
-		options: {
-			shown: true,
-		}
-	})
-	projects.set("ssssSQSD", {
-		commits: "",
-		name: "Salqqsdqdqsdsdsqdsdsut",
-		options: {
-			shown: true,
-		}
-	})
+	// projects.set("Test", {
+	// 	commits: "qsdq\n",
+	// 	name: "Salut",
+	// 	options: {
+	// 		shown: true,
+	// 	}
+	// })
+	// projects.set("SQSD", {
+	// 	commits: "",
+	// 	name: "Salqdsut",
+	// 	options: {
+	// 		shown: true,
+	// 	}
+	// })
+	// projects.set("SQSssD", {
+	// 	commits: "",
+	// 	name: "Salqdqqqsut",
+	// 	options: {
+	// 		shown: true,
+	// 	}
+	// })
+	// projects.set("ssssSQSD", {
+	// 	commits: "",
+	// 	name: "Salqqsdqdqsdsdsqdsdsut",
+	// 	options: {
+	// 		shown: true,
+	// 	}
+	// })
 
 	return projects;
 }
