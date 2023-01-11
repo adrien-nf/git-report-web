@@ -29,16 +29,22 @@ const mapData = (data: any[]): ProjectMap => {
 
 	data.forEach(e => {
 		const projectName = e[0];
-		if (!projects.has(projectName)) projects.set(projectName, {
-			name: projectName,
-			commits: "",
-			options: {
-				shown: true,
-			}
-		})
+		if (!projects.has(projectName)) {
+			projects.set(projectName, {
+				name: projectName,
+				commits: "",
+				options: {
+					shown: true,
+				}
+			})
+		}
 
-		projects.get(projectName)!.commits += "\n" + parseCommit(e);
+		projects.get(projectName)!.commits += "\n" + parseCommit(e).description;
+
+		// TODO: Remove this line when commits will be handled as objects
+		projects.get(projectName)!.commits = projects.get(projectName)!.commits.trim();
 	})
+
 
 	// projects.set("Test", {
 	// 	commits: "qsdq\n",
@@ -84,7 +90,6 @@ export function DataContextProvider({ children }: { children: React.ReactNode })
 		sse.addEventListener("init", (event) => {
 			setEventId(event.lastEventId);
 		})
-		setProjects(mapData([]));
 
 		sse.addEventListener('commits-ready', (event) => {
 			const id = event.lastEventId;
