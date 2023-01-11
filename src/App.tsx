@@ -6,8 +6,8 @@ import Dashboard from './pages/Dashboard/Dashboard';
 export default function App() {
 	return (
 		<Routes>
+			<Route path="/" element={<Dashboard />}></Route>
 			<Route path="/" element={<Home />}></Route>
-			<Route path="/report" element={<Dashboard />}></Route>
 		</Routes>
 	);
 }

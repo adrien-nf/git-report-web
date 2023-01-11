@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import Box from '@mui/material/Box';
 import { Grid, Skeleton, Stack, styled } from '@mui/material';
 import { Container } from '@mui/system';

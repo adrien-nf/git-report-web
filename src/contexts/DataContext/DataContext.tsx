@@ -25,16 +25,48 @@ const parseCommit = (e: any): Commit => ({
 })
 
 const mapData = (data: any[]): ProjectMap => {
-	const projects = new Map();
+	const projects: ProjectMap = new Map();
 
 	data.forEach(e => {
 		const projectName = e[0];
 		if (!projects.has(projectName)) projects.set(projectName, {
 			name: projectName,
 			commits: [],
+			options: {
+				shown: true,
+			}
 		})
 
 		projects.get(projectName)!.commits.push(parseCommit(e));
+	})
+
+	projects.set("Test", {
+		commits: [],
+		name: "Salut",
+		options: {
+			shown: true,
+		}
+	})
+	projects.set("SQSD", {
+		commits: [],
+		name: "Salqdsut",
+		options: {
+			shown: true,
+		}
+	})
+	projects.set("SQSssD", {
+		commits: [],
+		name: "Salqdqqqsut",
+		options: {
+			shown: true,
+		}
+	})
+	projects.set("ssssSQSD", {
+		commits: [],
+		name: "Salqqsdqdqsdsdsqdsdsut",
+		options: {
+			shown: true,
+		}
 	})
 
 	return projects;
@@ -52,6 +84,7 @@ export function DataContextProvider({ children }: { children: React.ReactNode })
 		sse.addEventListener("init", (event) => {
 			setEventId(event.lastEventId);
 		})
+		setProjects(mapData([]));
 
 		sse.addEventListener('commits-ready', (event) => {
 			const id = event.lastEventId;

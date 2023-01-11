@@ -9,7 +9,9 @@ export default function Report(props: {
 	return (
 		<Stack spacing={2}>
 			{
-				(Array.from(props.reportData.projects.values(), ((project: TypeProject) => <Project project={project} />)))
+				(Array.from(props.reportData.projects.values()))
+					.filter(project => project.options.shown)
+					.map((project: TypeProject) => <Project key={project.name} project={project} />)
 			}
 		</Stack>
 	)
