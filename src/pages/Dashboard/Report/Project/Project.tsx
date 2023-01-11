@@ -14,7 +14,7 @@ export default function Project(props: {
 			<Typography variant="h6" component="h1">{props.project.name}</Typography>
 			<StyledUl>
 				{
-					props.project.commits.map(e => <li>{e.description}</li>)
+					props.project.commits.trim().split(/\r?\n|\r|\n/g).filter(e => e).map(e => <li>{e}</li>)
 				}
 			</StyledUl>
 		</Box>

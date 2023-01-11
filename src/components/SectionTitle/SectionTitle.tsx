@@ -16,7 +16,7 @@ const StyledTitle = styled("span")(() => ({
 }))
 
 export default function SectionTitle(props: {
-	children: string
+	children: React.ReactNode
 }) {
 	return (
 		<StyledTitle>{props.children}</StyledTitle>

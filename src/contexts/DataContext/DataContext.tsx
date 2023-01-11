@@ -31,38 +31,38 @@ const mapData = (data: any[]): ProjectMap => {
 		const projectName = e[0];
 		if (!projects.has(projectName)) projects.set(projectName, {
 			name: projectName,
-			commits: [],
+			commits: "",
 			options: {
 				shown: true,
 			}
 		})
 
-		projects.get(projectName)!.commits.push(parseCommit(e));
+		projects.get(projectName)!.commits += "\n" + parseCommit(e);
 	})
 
 	projects.set("Test", {
-		commits: [],
+		commits: "qsdq\n",
 		name: "Salut",
 		options: {
 			shown: true,
 		}
 	})
 	projects.set("SQSD", {
-		commits: [],
+		commits: "",
 		name: "Salqdsut",
 		options: {
 			shown: true,
 		}
 	})
 	projects.set("SQSssD", {
-		commits: [],
+		commits: "",
 		name: "Salqdqqqsut",
 		options: {
 			shown: true,
 		}
 	})
 	projects.set("ssssSQSD", {
-		commits: [],
+		commits: "",
 		name: "Salqqsdqdqsdsdsqdsdsut",
 		options: {
 			shown: true,

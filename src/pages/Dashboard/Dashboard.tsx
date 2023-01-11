@@ -4,6 +4,7 @@ import Report from './Report/Report';
 import { DataContext } from '../../contexts/DataContext/DataContext';
 import { ReportData } from '../../types/ReportData';
 import Settings from './Settings/Settings';
+import { Project } from '../../types/Project';
 
 const Wrapper = styled(Box)(({ theme }) => ({
 	padding: theme.spacing(2),
@@ -16,17 +17,22 @@ export default function Dashboard() {
 		projects: new Map(),
 	});
 
+	const [selectedProject, setSelectedProject] = useState<Project>()
+
 	useEffect(() => {
 		setReportData({
 			projects
 		})
+		setSelectedProject(projects.values().next().value);
 	}, [projects])
 
 	return (
-		<Grid container>
-			<Grid item xs={12} md={6}>
+		<Grid container minHeight={"100vh"}>
+			<Grid item xs={12} md={6} style={{
+				backgroundColor: "rgba(0, 0, 0, 0.38)",
+			}}>
 				<Wrapper>
-					<Settings reportData={reportData} setReportData={setReportData} />
+					<Settings reportData={reportData} setReportData={setReportData} selectedProject={selectedProject} setSelectedProject={setSelectedProject} />
 				</Wrapper>
 			</Grid>
 			<Grid item xs={12} md={6}>
