@@ -9,11 +9,13 @@ type EventId = string | undefined;
 interface DataContextSpecs {
 	eventId: EventId,
 	projects: ProjectMap,
+	isError: boolean,
 }
 
 export const DataContext = createContext<DataContextSpecs>({
 	eventId: undefined,
 	projects: new Map(),
+	isError: false,
 });
 
 const parseCommit = (e: any): Commit => ({
@@ -83,6 +85,7 @@ export function DataContextProvider({ children }: { children: React.ReactNode })
 
 	const [eventId, setEventId] = useState<EventId>(undefined);
 	const [projects, setProjects] = useState<ProjectMap>(new Map());
+	const [isError, setIsError] = useState(false);
 
 	useEffect(() => {
 		const sse = new EventSource("/api/see");
@@ -105,6 +108,7 @@ export function DataContextProvider({ children }: { children: React.ReactNode })
 		});
 
 		sse.onerror = (e) => {
+			setIsError(true);
 			sse.close();
 		}
 
@@ -116,6 +120,7 @@ export function DataContextProvider({ children }: { children: React.ReactNode })
 	const contextValue = {
 		eventId,
 		projects,
+		isError,
 	};
 
 	return (
