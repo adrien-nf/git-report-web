@@ -1,11 +1,14 @@
-import React, { createContext, useCallback, useEffect, useState } from 'react';
-import Papa, { ParseLocalConfig, ParseRemoteConfig, ParseWorkerConfig } from 'papaparse';
+import React, { createContext, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Commit } from '../../types/Commit';
 import { ProjectMap } from '../../types/ReportData';
-import Dropzone, { useDropzone } from 'react-dropzone';
+import Dropzone from 'react-dropzone';
 import { RemoteParser } from '../Parsers/RemoteParser';
 import { LocalParser } from '../Parsers/LocalParser';
+import { useToasts } from '../../hooks/useToats';
+import { Backdrop, Typography } from '@mui/material';
+import FileDownloadIcon from '@mui/icons-material/FileDownload';
+import Stack from '@mui/material/Stack';
 
 type EventId = string | undefined;
 
@@ -45,40 +48,8 @@ const mapData = (data: any[]): ProjectMap => {
 		}
 
 		projects.get(projectName)!.commits += "\n" + parseCommit(e).description;
-
-		// TODO: Remove this line when commits will be handled as objects
 		projects.get(projectName)!.commits = projects.get(projectName)!.commits.trim();
 	})
-
-
-	// projects.set("Test", {
-	// 	commits: "qsdq\n",
-	// 	name: "Salut",
-	// 	options: {
-	// 		shown: true,
-	// 	}
-	// })
-	// projects.set("SQSD", {
-	// 	commits: "",
-	// 	name: "Salqdsut",
-	// 	options: {
-	// 		shown: true,
-	// 	}
-	// })
-	// projects.set("SQSssD", {
-	// 	commits: "",
-	// 	name: "Salqdqqqsut",
-	// 	options: {
-	// 		shown: true,
-	// 	}
-	// })
-	// projects.set("ssssSQSD", {
-	// 	commits: "",
-	// 	name: "Salqqsdqdqsdsdsqdsdsut",
-	// 	options: {
-	// 		shown: true,
-	// 	}
-	// })
 
 	return projects;
 }
@@ -89,6 +60,9 @@ export function DataContextProvider({ children }: { children: React.ReactNode })
 	const [eventId, setEventId] = useState<EventId>(undefined);
 	const [projects, setProjects] = useState<ProjectMap>(new Map());
 	const [isError, setIsError] = useState(false);
+	const [isFileBackdropOpen, setIsFileBackdropOpen] = useState(false);
+
+	const { errorSnackbar } = useToasts();
 
 	const onCsvReceived = (results: any) => {
 		setProjects(mapData(results.data));
@@ -128,28 +102,50 @@ export function DataContextProvider({ children }: { children: React.ReactNode })
 		<DataContext.Provider value={contextValue}>
 			<Dropzone
 				noClick={true}
-				onDrop={files => {
+				onDropAccepted={files => {
 					const reader = new FileReader()
 
-					reader.onabort = () => console.log('file reading was aborted')
-					reader.onerror = () => console.log('file reading has failed')
+					const file = files[0];
+
+					reader.onabort = () => errorSnackbar("File upload aborted.")
+					reader.onerror = () => errorSnackbar("File upload failed.")
 					reader.onload = () => LocalParser.parse(reader.result as string, onCsvReceived)
-					reader.readAsText(files[0])
+					reader.readAsText(file)
+				}}
+				onDropRejected={() => {
+					errorSnackbar("File isn't a valid CSV.")
+				}}
+				onDrop={() => {
+					setIsFileBackdropOpen(false)
 				}}
 				onDragEnter={() => {
-					console.log("enter")
+					setIsFileBackdropOpen(true)
 				}}
 				onDragLeave={() => {
-					console.log("enter")
+					setIsFileBackdropOpen(false)
 				}}
 				multiple={false}
+				accept={{
+					"text/csv": [".csv"]
+				}}
 			>
 				{({ getRootProps, getInputProps }) => (
 					<div {...getRootProps()}>
 						<input {...getInputProps()} hidden />
 						{children}
+
+						<Backdrop
+							sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}
+							open={isFileBackdropOpen}
+						>
+							<Stack alignItems="center">
+								<FileDownloadIcon fontSize="large" />
+								<Typography>Drag and drop a CSV file here</Typography>
+							</Stack>
+						</Backdrop>
 					</div>
 				)}
+
 			</Dropzone>
 		</DataContext.Provider >
 	);

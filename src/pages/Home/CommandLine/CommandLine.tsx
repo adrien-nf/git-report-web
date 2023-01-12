@@ -72,13 +72,17 @@ const LoadingOrError = (props: {
 	isError: boolean,
 }) => {
 	return props.isError ? (
-		<Typography style={{
-			alignSelf: "center",
-		}}>Could not establish connection to the server.</Typography>
+		<Typography
+			style={{
+				alignSelf: "center",
+			}}>
+			Could not establish connection to the server. Please drop a CSV file.
+		</Typography>
 	) : (
-		<CircularProgress style={{
-			alignSelf: "center"
-		}}
+		<CircularProgress
+			style={{
+				alignSelf: "center"
+			}}
 		/>
 	)
 }

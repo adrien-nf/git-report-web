@@ -6,6 +6,7 @@ import reportWebVitals from './reportWebVitals';
 import { createTheme, CssBaseline, ThemeProvider } from '@mui/material';
 import { DataContextProvider } from "./contexts/DataContext/DataContext";
 import { BrowserRouter } from 'react-router-dom';
+import { SnackbarProvider } from 'notistack';
 
 const darkTheme = createTheme({
 	palette: {
@@ -29,14 +30,16 @@ const root = ReactDOM.createRoot(
 
 root.render(
 	<React.StrictMode>
-		<BrowserRouter>
-			<DataContextProvider>
-				<ThemeProvider theme={darkTheme}>
-					<CssBaseline />
-					<App />
-				</ThemeProvider>
-			</DataContextProvider>
-		</BrowserRouter>
+		<SnackbarProvider maxSnack={3}>
+			<BrowserRouter>
+				<DataContextProvider>
+					<ThemeProvider theme={darkTheme}>
+						<CssBaseline />
+						<App />
+					</ThemeProvider>
+				</DataContextProvider>
+			</BrowserRouter>
+		</SnackbarProvider>
 	</React.StrictMode>
 );
 
