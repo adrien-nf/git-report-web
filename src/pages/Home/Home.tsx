@@ -89,7 +89,7 @@ export default function Home() {
 						}}>Git Report</span>
 					</Link>
 				</Box>
-				<Typography component="div">Made by <Link href="https://github.com/adrien-nf" target="_blank">Adrien NETO FERREIRA</Link> & <Link href="https://github.com/nathangobinet/" target="_blank">Nathan Gobinet</Link></Typography>
+				<Typography component="div">Made by <Link href="https://github.com/adrien-nf" target="_blank">Adrien NETO FERREIRA</Link> & <Link href="https://github.com/nathangobinet/" target="_blank">Nathan GOBINET</Link></Typography>
 			</Footer>
 		</React.Fragment >
 	);
