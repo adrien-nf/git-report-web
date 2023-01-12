@@ -1,7 +1,9 @@
-import { CircularProgress, Paper, styled, Tooltip, Typography } from "@mui/material"
+import { CircularProgress, Paper, Stack, styled, Tooltip, Typography } from "@mui/material"
 import { useContext, useState } from "react"
 import { DataContext } from "../../../contexts/DataContext/DataContext"
 import ThatsYou from "../../../assets/ThatsYou.svg";
+import SectionTitle from "../../../components/SectionTitle/SectionTitle";
+import LinkBadge from "../../../components/LinkBadge/LinkBadge";
 
 const BlackPaper = styled(Paper)(({ theme }) => ({
 	backgroundColor: theme.palette.common.black,
@@ -31,24 +33,38 @@ export default function CommandLine() {
 	const [isCopied, setIsCopied] = useState(false);
 
 	const getUrl = (): string => {
-		return window.location.href;
+		return window.location.href + "api/scripts/";
+	}
+
+	const getFullUrl = (): string => {
+		return window.location.href + "api/scripts/" + eventId;
 	}
 
 	const copy = () => {
 		if (eventId) {
-			navigator.clipboard.writeText(`sh -c "$(curl -fsSL ${getUrl()}api/script/${eventId})"`);
+			navigator.clipboard.writeText(`sh -c "$(curl -fsSL ${getUrl()}${eventId})"`);
 			setIsCopied(true);
 		}
 	}
 
-	return eventId ? (
-		<Tooltip title={isCopied ? "Copied" : "Click to copy"} onClose={() => setIsCopied(false)} placement="top">
-			<BlackPaper onClick={copy}>
-				<span>sh -c "$(curl -fsSL {getUrl()}api/script/<span style={{ color: "#9AE7FF" }}>{eventId}</span>)"</span>
-			</BlackPaper>
-		</Tooltip>
-	) : (
-		<LoadingOrError isError={isError} />
+	return (
+		<>
+			<Stack justifyContent="space-between" direction="row">
+				<SectionTitle>Get started now !</SectionTitle>
+				<LinkBadge text="Show the full script" link={getFullUrl()} />
+			</Stack>
+			{
+				eventId ? (
+					<Tooltip title={isCopied ? "Copied" : "Click to copy"} onClose={() => setIsCopied(false)} placement="top">
+						<BlackPaper onClick={copy}>
+							<span>sh -c "$(curl -fsSL {getUrl()}<span style={{ color: "#9AE7FF" }}>{eventId}</span>)"</span>
+						</BlackPaper>
+					</Tooltip>
+				) : (
+					<LoadingOrError isError={isError} />
+				)
+			}
+		</>
 	)
 }
 

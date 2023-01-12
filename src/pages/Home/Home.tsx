@@ -45,7 +45,6 @@ export default function Home() {
 							</Grid>
 						</Stack>
 						<Stack spacing={2}>
-							<SectionTitle>Get started now !</SectionTitle>
 							<CommandLine />
 						</Stack>
 						<Stack spacing={2}>
