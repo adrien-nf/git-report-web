@@ -32,7 +32,7 @@ export default function CommandLine() {
 
 	const copy = () => {
 		if (eventId) {
-			navigator.clipboard.writeText(`sh -c "$(curl -fsSL https://flash.vps.webdock.cloud/api/script/${eventId})`);
+			navigator.clipboard.writeText(`sh -c "$(curl -fsSL https://flash.vps.webdock.cloud/api/script/${eventId})"`);
 			setIsCopied(true);
 		}
 	}
