@@ -40,7 +40,8 @@ export default function Settings(props: {
 
 			return newReportData;
 		})
-	}, [commits, props])
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [commits])
 
 	return (
 		<Stack spacing={5}>
@@ -58,7 +59,6 @@ export default function Settings(props: {
 						(Array.from(props.reportData.projects.values())).map(e => (
 							<ButtonGroup size="small" aria-label="small button group" key={e.name}>
 								<Button variant={props.selectedProject === e ? "contained" : "outlined"} onClick={() => props.setSelectedProject(e)}>{e.name}</Button>
-								<Button onClick={() => props.setSelectedProject(e)}><Edit /></Button>
 								<Button onClick={() => toggleVisibility(e)}>
 									{
 										e.options.shown ? (
