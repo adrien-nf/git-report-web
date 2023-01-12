@@ -19,7 +19,7 @@ export default function LinkBadge(props: {
 	link: string,
 }) {
 	return (
-		<Wrapper href={props.link}>
+		<Wrapper href={props.link} target="_blank">
 			<OpenInNewIcon style={{
 				marginRight: 2,
 				fontSize: "1em",
