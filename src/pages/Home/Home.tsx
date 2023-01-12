@@ -78,7 +78,7 @@ export default function Home() {
 			</BoxContainer>
 			<Footer>
 				<Box component="div">
-					<Link href="https://github.com/adrien-nf/git-report-web" target="blank" >
+					<Link href="https://github.com/adrien-nf/git-report-web" target="_blank" >
 						<GitHubIcon style={{
 							verticalAlign: "middle",
 							display: "inline-block",
@@ -89,7 +89,7 @@ export default function Home() {
 						}}>Git Report</span>
 					</Link>
 				</Box>
-				<Typography component="div">Made by <Link href="https://github.com/adrien-nf">Adrien NETO FERREIRA</Link> & <Link href="https://github.com/nathangobinet/">Nathan Gobinet</Link></Typography>
+				<Typography component="div">Made by <Link href="https://github.com/adrien-nf" target="_blank">Adrien NETO FERREIRA</Link> & <Link href="https://github.com/nathangobinet/" target="_blank">Nathan Gobinet</Link></Typography>
 			</Footer>
 		</React.Fragment >
 	);
