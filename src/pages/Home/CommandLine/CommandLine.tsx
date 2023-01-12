@@ -30,9 +30,13 @@ export default function CommandLine() {
 
 	const [isCopied, setIsCopied] = useState(false);
 
+	const getUrl = (): string => {
+		return window.location.href;
+	}
+
 	const copy = () => {
 		if (eventId) {
-			navigator.clipboard.writeText(`sh -c "$(curl -fsSL https://flash.vps.webdock.cloud/api/script/${eventId})"`);
+			navigator.clipboard.writeText(`sh -c "$(curl -fsSL ${getUrl()}api/script/${eventId})"`);
 			setIsCopied(true);
 		}
 	}
@@ -40,7 +44,7 @@ export default function CommandLine() {
 	return eventId ? (
 		<Tooltip title={isCopied ? "Copied" : "Click to copy"} onClose={() => setIsCopied(false)} placement="top">
 			<BlackPaper onClick={copy}>
-				<span>sh -c "$(curl -fsSL https://flash.vps.webdock.cloud/api/script/<span style={{ color: "#9AE7FF" }}>{eventId}</span>)"</span>
+				<span>sh -c "$(curl -fsSL {getUrl()}api/script/<span style={{ color: "#9AE7FF" }}>{eventId}</span>)"</span>
 			</BlackPaper>
 		</Tooltip>
 	) : (
