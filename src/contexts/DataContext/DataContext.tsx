@@ -1,8 +1,11 @@
-import React, { createContext, useEffect, useState } from 'react';
-import Papa, { ParseRemoteConfig } from 'papaparse';
+import React, { createContext, useCallback, useEffect, useState } from 'react';
+import Papa, { ParseLocalConfig, ParseRemoteConfig, ParseWorkerConfig } from 'papaparse';
 import { useNavigate } from 'react-router-dom';
 import { Commit } from '../../types/Commit';
 import { ProjectMap } from '../../types/ReportData';
+import Dropzone, { useDropzone } from 'react-dropzone';
+import { RemoteParser } from '../Parsers/RemoteParser';
+import { LocalParser } from '../Parsers/LocalParser';
 
 type EventId = string | undefined;
 
@@ -22,7 +25,7 @@ const parseCommit = (e: any): Commit => ({
 	id: e[1],
 	username: e[2],
 	email: e[3],
-	date: e[4],
+	date: new Date(e[4]),
 	description: e[5]
 })
 
@@ -87,6 +90,11 @@ export function DataContextProvider({ children }: { children: React.ReactNode })
 	const [projects, setProjects] = useState<ProjectMap>(new Map());
 	const [isError, setIsError] = useState(false);
 
+	const onCsvReceived = (results: any) => {
+		setProjects(mapData(results.data));
+		return navigate("/report");
+	}
+
 	useEffect(() => {
 		const sse = new EventSource("/api/see");
 
@@ -97,14 +105,7 @@ export function DataContextProvider({ children }: { children: React.ReactNode })
 		sse.addEventListener('commits-ready', (event) => {
 			const id = event.lastEventId;
 			const url = `/api/get-commits/${id}`;
-			Papa.parse(url, {
-				download: true,
-				skipEmptyLines: true,
-				complete(results) {
-					setProjects(mapData(results.data));
-					return navigate("/report");
-				},
-			} as ParseRemoteConfig);
+			RemoteParser.parse(url, onCsvReceived)
 		});
 
 		sse.onerror = (e) => {
@@ -125,7 +126,31 @@ export function DataContextProvider({ children }: { children: React.ReactNode })
 
 	return (
 		<DataContext.Provider value={contextValue}>
-			{children}
-		</DataContext.Provider>
+			<Dropzone
+				noClick={true}
+				onDrop={files => {
+					const reader = new FileReader()
+
+					reader.onabort = () => console.log('file reading was aborted')
+					reader.onerror = () => console.log('file reading has failed')
+					reader.onload = () => LocalParser.parse(reader.result as string, onCsvReceived)
+					reader.readAsText(files[0])
+				}}
+				onDragEnter={() => {
+					console.log("enter")
+				}}
+				onDragLeave={() => {
+					console.log("enter")
+				}}
+				multiple={false}
+			>
+				{({ getRootProps, getInputProps }) => (
+					<div {...getRootProps()}>
+						<input {...getInputProps()} hidden />
+						{children}
+					</div>
+				)}
+			</Dropzone>
+		</DataContext.Provider >
 	);
 }
