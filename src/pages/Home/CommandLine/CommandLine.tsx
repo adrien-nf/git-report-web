@@ -33,11 +33,11 @@ export default function CommandLine() {
 	const [isCopied, setIsCopied] = useState(false);
 
 	const getUrl = (): string => {
-		return window.location.href + "api/scripts/";
+		return window.location.href + "api/script/";
 	}
 
 	const getFullUrl = (): string => {
-		return window.location.href + "api/scripts/" + eventId;
+		return window.location.href + "api/script/" + eventId;
 	}
 
 	const copy = () => {
