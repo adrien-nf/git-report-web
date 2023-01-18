@@ -40,36 +40,6 @@ export default function Settings(props: {
 	}, [commits])
 
 	useEffect(() => {
-		if (availableDates.length === 0) return;
-
-		const min = availableDates[pickedDates[0]];
-		const max = availableDates[pickedDates[1]];
-
-		const projectsToIterateOver = Array.from(projects.values());
-
-		const reportData: ReportData = { projects: new Map() };
-
-		projectsToIterateOver.forEach(project => {
-			const newProject: Project = {
-				commits: project.commits.filter(e => e.date >= min && e.date <= max).map(e => e.description).join("\n"),
-				name: project.name,
-				options: {
-					shown: true
-				}
-			}
-
-			if (newProject.commits.length > 0) {
-				reportData.projects.set(project.name, newProject)
-			}
-		})
-
-		props.setReportData(reportData);
-		props.setSelectedProject(reportData.projects.values().next().value);
-
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [pickedDates])
-
-	useEffect(() => {
 		const newDates = (Array.from(projects.values()))
 			.reduce<Date[]>((dates: Date[], project: ParsedProject) => {
 				return dates.concat(project.commits.map(e => e.date))
@@ -118,6 +88,36 @@ export default function Settings(props: {
 		setPickedDates([0, availableDates.length - 1])
 	}
 
+	const handleDateRangeChangeCommitted = (event: Event | React.SyntheticEvent<Element, Event>, value: number | number[]) => {
+		if (availableDates.length === 0) return;
+
+		value = value as number[];
+
+		const min = availableDates[value[0]];
+		const max = availableDates[value[1]];
+
+		const projectsToIterateOver = Array.from(projects.values());
+
+		const reportData: ReportData = { projects: new Map() };
+
+		projectsToIterateOver.forEach(project => {
+			const newProject: Project = {
+				commits: project.commits.filter(e => e.date >= min && e.date <= max).map(e => e.description).join("\n"),
+				name: project.name,
+				options: {
+					shown: true
+				}
+			}
+
+			if (newProject.commits.length > 0) {
+				reportData.projects.set(project.name, newProject)
+			}
+		})
+
+		props.setReportData(reportData);
+		props.setSelectedProject(reportData.projects.values().next().value);
+	}
+
 	return (
 		<Box>
 			<Stack spacing={5}>
@@ -135,6 +135,7 @@ export default function Settings(props: {
 						min={0}
 						max={availableDates.length - 1}
 						onChange={handleDateRangeChange}
+						onChangeCommitted={handleDateRangeChangeCommitted}
 					/>
 					<Stack direction="row">
 						<Button onClick={() => updateToDaysAgo(7)}>1 week</Button>
