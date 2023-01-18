@@ -45,7 +45,7 @@ export default function Settings(props: {
 				return dates.concat(project.commits.map(e => e.date))
 			}, [])
 
-		setAvailableDates(newDates)
+		setAvailableDates(newDates.reverse())
 
 		setPickedDates([0, newDates.length - 1])
 	}, [projects])
@@ -64,6 +64,31 @@ export default function Settings(props: {
 		setPickedDates(newValue as number[])
 	}
 
+	const updateTo = (date: Date) => {
+		const correctIndex = [...availableDates].reverse().findIndex((e) => e < date)
+
+		setPickedDates([availableDates.length - correctIndex, availableDates.length - 1])
+
+	}
+
+	const updateToLastMonth = () => {
+		const date = new Date();
+		date.setHours(0, 0, 0, 0);
+		date.setMonth(date.getMonth() - 1);
+		updateTo(date);
+	}
+
+	const updateToDaysAgo = (daysAgo: number) => {
+		const date = new Date();
+		date.setHours(0, 0, 0, 0);
+		date.setDate(date.getDate() - daysAgo);
+		updateTo(date);
+	}
+
+	const updateToAllTime = () => {
+		setPickedDates([0, availableDates.length - 1])
+	}
+
 	return (
 		<Box>
 			<Stack spacing={5}>
@@ -72,11 +97,22 @@ export default function Settings(props: {
 					<Slider
 						getAriaLabel={() => 'Commits date range'}
 						valueLabelDisplay="auto"
+						valueLabelFormat={(value: number) => {
+							if (typeof availableDates[value] === "undefined") return "";
+
+							return availableDates[value].toDateString()
+						}}
 						value={pickedDates}
 						min={0}
-						max={availableDates.length}
+						max={availableDates.length - 1}
 						onChange={handleDateRangeChange}
 					/>
+					<Stack direction="row">
+						<Button onClick={() => updateToDaysAgo(7)}>1 week</Button>
+						<Button onClick={() => updateToDaysAgo(14)}>2 weeks</Button>
+						<Button onClick={updateToLastMonth}>1 month</Button>
+						<Button onClick={updateToAllTime}>All time</Button>
+					</Stack>
 				</Box>
 				<Box>
 					<SectionTitle>Topics</SectionTitle>
@@ -105,8 +141,8 @@ export default function Settings(props: {
 						<TextField label="Commits" multiline value={commits} onChange={(e) => setCommits(e.target.value)} />
 					</Stack>
 				</Box>
-			</Stack>
+			</Stack >
 			<FloatingFooter></FloatingFooter>
-		</Box>
+		</Box >
 	)
 }
