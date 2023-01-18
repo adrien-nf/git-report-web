@@ -53,7 +53,12 @@ export default function Dashboard() {
 				backgroundColor: "rgba(0, 0, 0, 0.38)",
 			}}>
 				<Wrapper>
-					<Settings reportData={reportData} setReportData={setReportData} selectedProject={selectedProject} setSelectedProject={setSelectedProject} />
+					<Settings
+						reportData={reportData}
+						setReportData={setReportData}
+						selectedProject={selectedProject}
+						setSelectedProject={setSelectedProject}
+					/>
 				</Wrapper>
 			</Grid>
 			<Grid item xs={12} md={6}>

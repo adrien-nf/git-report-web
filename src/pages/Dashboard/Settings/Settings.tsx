@@ -20,7 +20,7 @@ export default function Settings(props: {
 	const { projects } = useContext(DataContext);
 
 	const [availableDates, setAvailableDates] = useState<Date[]>([]);
-	const [pickedDates, setPickedDates] = React.useState<number[]>([0, 100]);
+	const [pickedDates, setPickedDates] = React.useState<number[]>([-1, -1]);
 
 	useEffect(() => {
 		setCommits(props.selectedProject?.commits || "");
@@ -38,6 +38,36 @@ export default function Settings(props: {
 		})
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [commits])
+
+	useEffect(() => {
+		if (availableDates.length === 0) return;
+
+		const min = availableDates[pickedDates[0]];
+		const max = availableDates[pickedDates[1]];
+
+		const projectsToIterateOver = Array.from(projects.values());
+
+		const reportData: ReportData = { projects: new Map() };
+
+		projectsToIterateOver.forEach(project => {
+			const newProject: Project = {
+				commits: project.commits.filter(e => e.date >= min && e.date <= max).map(e => e.description).join("\n"),
+				name: project.name,
+				options: {
+					shown: true
+				}
+			}
+
+			if (newProject.commits.length > 0) {
+				reportData.projects.set(project.name, newProject)
+			}
+		})
+
+		props.setReportData(reportData);
+		props.setSelectedProject(reportData.projects.values().next().value);
+
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [pickedDates])
 
 	useEffect(() => {
 		const newDates = (Array.from(projects.values()))
@@ -68,7 +98,6 @@ export default function Settings(props: {
 		const correctIndex = [...availableDates].reverse().findIndex((e) => e < date)
 
 		setPickedDates([availableDates.length - correctIndex, availableDates.length - 1])
-
 	}
 
 	const updateToLastMonth = () => {
