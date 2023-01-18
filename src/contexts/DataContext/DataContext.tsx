@@ -1,7 +1,6 @@
 import React, { createContext, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Commit } from '../../types/Commit';
-import { ProjectMap } from '../../types/ReportData';
 import Dropzone from 'react-dropzone';
 import { RemoteParser } from '../Parsers/RemoteParser';
 import { LocalParser } from '../Parsers/LocalParser';
@@ -9,12 +8,13 @@ import { useToasts } from '../../hooks/useToats';
 import { Backdrop, Typography } from '@mui/material';
 import FileDownloadIcon from '@mui/icons-material/FileDownload';
 import Stack from '@mui/material/Stack';
+import { ParsedProjectMap } from '../../types/ParsedProject';
 
 type EventId = string | undefined;
 
 interface DataContextSpecs {
 	eventId: EventId,
-	projects: ProjectMap,
+	projects: ParsedProjectMap,
 	isError: boolean,
 }
 
@@ -32,23 +32,19 @@ const parseCommit = (e: any): Commit => ({
 	description: e[5]
 })
 
-const mapData = (data: any[]): ProjectMap => {
-	const projects: ProjectMap = new Map();
+const mapData = (data: any[]): ParsedProjectMap => {
+	const projects: ParsedProjectMap = new Map();
 
 	data.forEach(e => {
 		const projectName = e[0];
 		if (!projects.has(projectName)) {
 			projects.set(projectName, {
 				name: projectName,
-				commits: "",
-				options: {
-					shown: true,
-				}
+				commits: [],
 			})
 		}
 
-		projects.get(projectName)!.commits += "\n" + parseCommit(e).description;
-		projects.get(projectName)!.commits = projects.get(projectName)!.commits.trim();
+		projects.get(projectName)!.commits.push(parseCommit(e));
 	})
 
 	return projects;
@@ -58,7 +54,7 @@ export function DataContextProvider({ children }: { children: React.ReactNode })
 	const navigate = useNavigate();
 
 	const [eventId, setEventId] = useState<EventId>(undefined);
-	const [projects, setProjects] = useState<ProjectMap>(new Map());
+	const [projects, setProjects] = useState<ParsedProjectMap>(new Map());
 	const [isError, setIsError] = useState(false);
 	const [isFileBackdropOpen, setIsFileBackdropOpen] = useState(false);
 
