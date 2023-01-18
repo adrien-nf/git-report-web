@@ -75,7 +75,7 @@ export default function Settings(props: {
 				return dates.concat(project.commits.map(e => e.date))
 			}, [])
 
-		setAvailableDates(newDates.reverse())
+		setAvailableDates(newDates.sort((a, b) => a.getTime() - b.getTime()))
 
 		setPickedDates([0, newDates.length - 1])
 	}, [projects])
