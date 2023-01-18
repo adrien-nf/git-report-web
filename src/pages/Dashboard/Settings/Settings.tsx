@@ -40,13 +40,14 @@ export default function Settings(props: {
 	}, [commits])
 
 	useEffect(() => {
-		setAvailableDates(
-			(Array.from(projects.values()))
-				.reduce<Date[]>((dates: Date[], project: ParsedProject) => {
-					return []
-				}, [])
-		)
+		const newDates = (Array.from(projects.values()))
+			.reduce<Date[]>((dates: Date[], project: ParsedProject) => {
+				return dates.concat(project.commits.map(e => e.date))
+			}, [])
 
+		setAvailableDates(newDates)
+
+		setPickedDates([0, newDates.length - 1])
 	}, [projects])
 
 	const toggleVisibility = (project: Project) => {

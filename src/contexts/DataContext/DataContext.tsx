@@ -86,6 +86,7 @@ export function DataContextProvider({ children }: { children: React.ReactNode })
 		return () => {
 			sse.close();
 		};
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [navigate]);
 
 	const contextValue = {
