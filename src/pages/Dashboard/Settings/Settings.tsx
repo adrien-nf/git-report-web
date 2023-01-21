@@ -6,7 +6,6 @@ import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import { ParsedProject } from "../../../types/ParsedProject";
 import { Project } from "../../../types/Project";
-import FloatingFooter from "../FloatingFooter/FloatingFooter";
 import { DataContext } from "../../../contexts/DataContext/DataContext";
 
 export default function Settings(props: {
@@ -67,34 +66,14 @@ export default function Settings(props: {
 	const updateTo = (date: Date) => {
 		const correctIndex = [...availableDates].reverse().findIndex((e) => e < date)
 
-		setPickedDates([availableDates.length - correctIndex, availableDates.length - 1])
+		update([availableDates.length - correctIndex, availableDates.length - 1]);
 	}
 
-	const updateToLastMonth = () => {
-		const date = new Date();
-		date.setHours(0, 0, 0, 0);
-		date.setMonth(date.getMonth() - 1);
-		updateTo(date);
-	}
-
-	const updateToDaysAgo = (daysAgo: number) => {
-		const date = new Date();
-		date.setHours(0, 0, 0, 0);
-		date.setDate(date.getDate() - daysAgo);
-		updateTo(date);
-	}
-
-	const updateToAllTime = () => {
-		setPickedDates([0, availableDates.length - 1])
-	}
-
-	const handleDateRangeChangeCommitted = (event: Event | React.SyntheticEvent<Element, Event>, value: number | number[]) => {
+	const update = (values: number[]) => {
 		if (availableDates.length === 0) return;
 
-		value = value as number[];
-
-		const min = availableDates[value[0]];
-		const max = availableDates[value[1]];
+		const min = availableDates[values[0]];
+		const max = availableDates[values[1]];
 
 		const projectsToIterateOver = Array.from(projects.values());
 
@@ -116,10 +95,34 @@ export default function Settings(props: {
 
 		props.setReportData(reportData);
 		props.setSelectedProject(reportData.projects.values().next().value);
+		setPickedDates(values)
+	}
+
+	const updateToLastMonth = () => {
+		const date = new Date();
+		date.setHours(0, 0, 0, 0);
+		date.setMonth(date.getMonth() - 1);
+		updateTo(date);
+	}
+
+	const updateToDaysAgo = (daysAgo: number) => {
+		const date = new Date();
+		date.setHours(0, 0, 0, 0);
+		date.setDate(date.getDate() - daysAgo);
+		updateTo(date);
+	}
+
+	const updateToAllTime = () => {
+		setPickedDates([0, availableDates.length - 1])
+	}
+
+	const handleDateRangeChangeCommitted = (event: Event | React.SyntheticEvent<Element, Event>, values: number | number[]) => {
+		values = values as number[];
+		update(values);
 	}
 
 	return (
-		<Box>
+		<Box flexGrow={1}>
 			<Stack spacing={5}>
 				<Box>
 					<SectionTitle>Date range</SectionTitle>
@@ -172,7 +175,6 @@ export default function Settings(props: {
 					</Stack>
 				</Box>
 			</Stack >
-			<FloatingFooter></FloatingFooter>
 		</Box >
 	)
 }

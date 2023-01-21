@@ -8,18 +8,11 @@ import SectionTitle from '../../components/SectionTitle/SectionTitle';
 import CommandLine from './CommandLine/CommandLine';
 import Step from './Step/Step';
 import GitHubIcon from '@mui/icons-material/GitHub';
+import Footer from '../../components/Footer/Footer';
 
 const BoxContainer = styled(Box)(({ theme }) => ({
 	paddingTop: theme.spacing(7),
 	paddingBottom: theme.spacing(7),
-}))
-
-const Footer = styled(Box)(({ theme }) => ({
-	backgroundColor: "rgba(0, 0, 0, 0.25)",
-	paddingTop: theme.spacing(3),
-	paddingBottom: theme.spacing(3),
-	textAlign: "center",
-	width: "100%"
 }))
 
 export default function Home() {
@@ -75,7 +68,9 @@ export default function Home() {
 					</Stack>
 				</Container>
 			</BoxContainer>
-			<Footer>
+			<Footer style={{
+				textAlign: "center",
+			}}>
 				<Box component="div">
 					<Link href="https://github.com/adrien-nf/git-report-web" target="_blank" >
 						<GitHubIcon style={{
