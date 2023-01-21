@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { Box, Grid, Stack, styled } from '@mui/material';
+import { Box, Button, Grid, Stack, styled } from '@mui/material';
 import Report from './Report/Report';
 import { DataContext } from '../../contexts/DataContext/DataContext';
 import { ReportData } from '../../types/ReportData';
@@ -7,6 +7,7 @@ import Settings from './Settings/Settings';
 import { Project } from '../../types/Project';
 import { ParsedProjectMap } from '../../types/ParsedProject';
 import Footer from '../../components/Footer/Footer';
+import { ExporterFactory, ExportType } from '../../services/Exporter/ExporterFactory';
 
 const Wrapper = styled(Box)(({ theme }) => ({
 	display: "flex",
@@ -60,6 +61,10 @@ export default function Dashboard() {
 		setReportData(generateReportDataFrom(projects))
 	}, [projects])
 
+	const exportAs = (as: ExportType) => {
+		(ExporterFactory.generate(as).export(reportData))
+	}
+
 	return (
 		<Grid container style={{
 			maxHeight: "100vh",
@@ -78,7 +83,6 @@ export default function Dashboard() {
 						/>
 					</Wrapper>
 					<Footer>
-						<p>Salut</p>
 					</Footer>
 				</Stack>
 			</Grid>
@@ -88,7 +92,10 @@ export default function Dashboard() {
 						<Report reportData={reportData} />
 					</Wrapper>
 					<Footer>
-						<p>Salut</p>
+						<Stack direction="row-reverse">
+							<Button onClick={() => exportAs("text")}>To Text</Button>
+							<Button onClick={() => exportAs("html")}>To HTML</Button>
+						</Stack>
 					</Footer>
 				</Stack>
 			</Grid>

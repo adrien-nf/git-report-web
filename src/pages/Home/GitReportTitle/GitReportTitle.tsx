@@ -6,7 +6,7 @@ const Wrap = styled(Typography)(() => ({
 }))
 
 const Git = styled(Typography)(() => ({
-	textTransform: "uppercase"
+	textTransform: "uppercase",
 })) as typeof Typography
 
 const Report = styled(Typography)(() => ({
