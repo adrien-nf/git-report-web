@@ -113,7 +113,7 @@ export default function Settings(props: {
 	}
 
 	const updateToAllTime = () => {
-		setPickedDates([0, availableDates.length - 1])
+		update([0, availableDates.length - 1]);
 	}
 
 	const handleDateRangeChangeCommitted = (event: Event | React.SyntheticEvent<Element, Event>, values: number | number[]) => {
