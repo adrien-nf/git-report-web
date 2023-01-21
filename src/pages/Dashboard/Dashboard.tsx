@@ -14,6 +14,16 @@ const Wrapper = styled(Box)(({ theme }) => ({
 	overflowY: "scroll",
 	padding: theme.spacing(2),
 	overflowX: "hidden",
+	'&::-webkit-scrollbar': {
+		width: '0.4em',
+		paddingRight: "0.1em",
+	},
+	'&::-webkit-scrollbar-track': {
+		backgroundColor: "rgba(0, 194, 255, 0.15);",
+	},
+	'&::-webkit-scrollbar-thumb': {
+		backgroundColor: '#00C2FF',
+	}
 }))
 
 export default function Dashboard() {
