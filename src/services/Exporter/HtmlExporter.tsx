@@ -8,10 +8,10 @@ export class HtmlExporter implements Exporter {
 		reportData.projects.forEach(p => {
 			buffer.push(`<h1>${p.name}</h1>`);
 			buffer.push("<ul>");
-			buffer.push(p.commits.split("\n").map(e => `<li>${e}</li>`).join("\n"));
+			buffer.push(p.commits.split("\n").map(e => `<li>${e}</li>`).join(""));
 			buffer.push("</ul>");
 		})
 
-		navigator.clipboard.writeText(buffer.join("\n"));
+		navigator.clipboard.writeText(buffer.join(""));
 	}
 }
