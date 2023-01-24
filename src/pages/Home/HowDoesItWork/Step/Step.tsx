@@ -18,11 +18,10 @@ export default function Step(props: {
 }) {
 	return (
 		<StyledBox>
-			<Stack direction="column">
-				<Stack direction="row" spacing={1}>
-					<StepNumber>#{props.number}</StepNumber>
-					<Typography>- {props.title}</Typography>
-				</Stack>
+			<Stack direction="row" spacing={1}>
+				<StepNumber>#{props.number}</StepNumber>
+				<Typography>-</Typography>
+				<Typography>{props.title}</Typography>
 			</Stack>
 			{props.children}
 		</StyledBox>

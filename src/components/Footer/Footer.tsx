@@ -10,7 +10,7 @@ const StyledFooter = styled(Box)(({ theme }) => ({
 }))
 
 
-export default function Footer(props: {
+function Footer(props: {
 	children: ReactNode | ReactNode[],
 } & BoxProps) {
 	return (
@@ -19,3 +19,5 @@ export default function Footer(props: {
 		</StyledFooter>
 	)
 }
+
+export default styled(Footer)();
