@@ -1,10 +1,16 @@
-import { Button, ButtonGroup, Stack } from "@mui/material";
+import { Button, ButtonGroup, Stack, styled } from "@mui/material";
 import React, { Dispatch, SetStateAction } from "react";
 import SectionTitle from "../../../../components/SectionTitle/SectionTitle";
 import { Project } from "../../../../types/Project";
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import { ReportData } from "../../../../types/ReportData";
+
+const StyledIconButton = styled(Button)(() => ({
+	backgroundColor: "#101E21",
+	color: "#9AE7FF",
+	border: 0,
+}))
 
 export default function Topics(props: {
 	reportData: ReportData,
@@ -32,11 +38,7 @@ export default function Topics(props: {
 								backgroundColor: props.selectedProject === e ? "#092D39" : "#0B1316",
 								color: props.selectedProject === e ? "#9AE7FF" : "white",
 							}} variant="contained" onClick={() => props.setSelectedProject(e)}>{e.name}</Button>
-							<Button style={{
-								backgroundColor: "#101E21",
-								color: "#9AE7FF",
-								border: 0,
-							}} onClick={() => toggleVisibility(e)}>
+							<StyledIconButton onClick={() => toggleVisibility(e)}>
 								{
 									props.reportData.projects.get(e.name)!.options.shown ? (
 										<Visibility />
@@ -44,7 +46,7 @@ export default function Topics(props: {
 										<VisibilityOff />
 									)
 								}
-							</Button>
+							</StyledIconButton>
 						</ButtonGroup>
 					))
 				}
