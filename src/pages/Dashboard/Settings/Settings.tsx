@@ -135,7 +135,7 @@ export default function Settings(props: {
 	return (
 		<Box flexGrow={1}>
 			<Stack spacing={5}>
-				<Box>
+				<Stack>
 					<SectionTitle>Date range</SectionTitle>
 					<Slider
 						getAriaLabel={() => 'Commits date range'}
@@ -157,8 +157,8 @@ export default function Settings(props: {
 						<ButtonBadge onClick={updateToLastMonth}>1 month</ButtonBadge>
 						<ButtonBadge onClick={updateToAllTime}>All time</ButtonBadge>
 					</Stack>
-				</Box>
-				<Box>
+				</Stack>
+				<Stack>
 					<SectionTitle>Topics</SectionTitle>
 					<Stack direction="row" columnGap={2} rowGap={2} flexWrap="wrap">
 						{
@@ -178,25 +178,19 @@ export default function Settings(props: {
 							))
 						}
 					</Stack>
-				</Box>
-				<Box>
-					<Stack>
-						<SectionTitle>Items <span>{props.selectedProject?.name}</span></SectionTitle>
-						<TextField label="Commits" multiline value={commits} onChange={(e) => setCommits(e.target.value)} />
-					</Stack>
-				</Box>
-				<Box>
-					<Stack>
-						<SectionTitle>Before</SectionTitle>
-						<TextField label="Before" multiline onChange={(event) => updateBefore(event.target.value)} />
-					</Stack>
-				</Box>
-				<Box>
-					<Stack>
-						<SectionTitle>After</SectionTitle>
-						<TextField label="After" multiline onChange={(event) => updateAfter(event.target.value)} />
-					</Stack>
-				</Box>
+				</Stack>
+				<Stack>
+					<SectionTitle>Items <span>{props.selectedProject?.name}</span></SectionTitle>
+					<TextField label="Commits" multiline value={commits} onChange={(e) => setCommits(e.target.value)} />
+				</Stack>
+				<Stack>
+					<SectionTitle>Before</SectionTitle>
+					<TextField label="Before" multiline onChange={(event) => updateBefore(event.target.value)} />
+				</Stack>
+				<Stack>
+					<SectionTitle>After</SectionTitle>
+					<TextField label="After" multiline onChange={(event) => updateAfter(event.target.value)} />
+				</Stack>
 			</Stack >
 		</Box >
 	)

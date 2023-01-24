@@ -13,24 +13,32 @@ export default function Report(props: {
 }) {
 	return (
 		<Stack spacing={2}>
-			<SpacedSpan style={{
-				whiteSpace: "pre-wrap",
-				wordWrap: "break-word"
-			}}>
-				{
-					props.reportData.before.trim()
-				}
-			</SpacedSpan>
+			{
+				props.reportData.before && (
+					<SpacedSpan style={{
+						whiteSpace: "pre-wrap",
+						wordWrap: "break-word"
+					}}>
+						{
+							props.reportData.before.trim()
+						}
+					</SpacedSpan>
+				)
+			}
 			{
 				(Array.from(props.reportData.projects.values()))
 					.filter(project => project.options.shown)
 					.map((project: TypeProject) => <Project key={project.name} project={project} />)
 			}
-			<SpacedSpan>
-				{
-					props.reportData.after
-				}
-			</SpacedSpan>
+			{
+				props.reportData.after && (
+					<SpacedSpan>
+						{
+							props.reportData.after
+						}
+					</SpacedSpan>
+				)
+			}
 		</Stack>
 	)
 }
