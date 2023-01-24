@@ -51,7 +51,11 @@ export default function CommandLine() {
 		<>
 			<Stack justifyContent="space-between" direction="row">
 				<SectionTitle>Get started now !</SectionTitle>
-				<LinkBadge text="Show the full script" link={getFullUrl()} />
+				{
+					eventId ? (
+						<LinkBadge text="Show the full script" link={getFullUrl()} />
+					) : ""
+				}
 			</Stack>
 			{
 				eventId ? (
