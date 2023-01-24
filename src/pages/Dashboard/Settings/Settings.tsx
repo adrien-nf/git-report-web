@@ -174,6 +174,18 @@ export default function Settings(props: {
 						<TextField label="Commits" multiline value={commits} onChange={(e) => setCommits(e.target.value)} />
 					</Stack>
 				</Box>
+				<Box>
+					<Stack>
+						<SectionTitle>Before</SectionTitle>
+						<TextField label="Before" multiline />
+					</Stack>
+				</Box>
+				<Box>
+					<Stack>
+						<SectionTitle>After</SectionTitle>
+						<TextField label="After" multiline />
+					</Stack>
+				</Box>
 			</Stack >
 		</Box >
 	)

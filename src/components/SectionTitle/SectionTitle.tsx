@@ -1,4 +1,4 @@
-import { styled } from "@mui/material"
+import { Box, styled } from "@mui/material"
 
 
 const StyledTitle = styled("span")(() => ({
@@ -6,12 +6,11 @@ const StyledTitle = styled("span")(() => ({
 		content: '""',
 		position: "absolute",
 		height: "1em",
-		// TODO: Width should be inherited from parent.
-		width: "30px",
+		width: "100%",
 		marginLeft: "-6px",
 		backgroundColor: "rgba(0, 194, 255, 0.21)",
-		zIndex: "-1",
 		borderRadius: "2px",
+		zIndex: -1
 	}
 }))
 
@@ -19,6 +18,8 @@ export default function SectionTitle(props: {
 	children: React.ReactNode
 }) {
 	return (
-		<StyledTitle>{props.children}</StyledTitle>
+		<Box position="relative" width="fit-content">
+			<StyledTitle>{props.children}</StyledTitle>
+		</Box>
 	)
 }
