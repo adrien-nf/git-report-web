@@ -7,7 +7,8 @@ import Settings from './Settings/Settings';
 import { Project } from '../../types/Project';
 import { ParsedProjectMap } from '../../types/ParsedProject';
 import Footer from '../../components/Footer/Footer';
-import { ExporterFactory, ExportType } from '../../services/Exporter/ExporterFactory';
+import { ExporterFactory } from '../../services/Exporter/ExporterFactory';
+import { ExportType } from '../../services/Exporter/ExportType';
 
 const Wrapper = styled(Box)(({ theme }) => ({
 	display: "flex",
@@ -93,8 +94,8 @@ export default function Dashboard() {
 					</Wrapper>
 					<Footer>
 						<Stack direction="row-reverse">
-							<Button onClick={() => exportAs("text")}>To Text</Button>
-							<Button onClick={() => exportAs("html")}>To HTML</Button>
+							<Button onClick={() => exportAs(ExportType.Text)}>To Text</Button>
+							<Button onClick={() => exportAs(ExportType.Html)}>To HTML</Button>
 						</Stack>
 					</Footer>
 				</Stack>
