@@ -28,8 +28,15 @@ export default function Topics(props: {
 				{
 					(Array.from(props.reportData.projects.values())).map(e => (
 						<ButtonGroup size="small" aria-label="small button group" key={e.name}>
-							<Button variant={props.selectedProject?.name === e.name ? "contained" : "outlined"} onClick={() => props.setSelectedProject(e)}>{e.name}</Button>
-							<Button onClick={() => toggleVisibility(e)}>
+							<Button style={{
+								backgroundColor: props.selectedProject === e ? "#092D39" : "#0B1316",
+								color: props.selectedProject === e ? "#9AE7FF" : "white",
+							}} variant="contained" onClick={() => props.setSelectedProject(e)}>{e.name}</Button>
+							<Button style={{
+								backgroundColor: "#101E21",
+								color: "#9AE7FF",
+								border: 0,
+							}} onClick={() => toggleVisibility(e)}>
 								{
 									props.reportData.projects.get(e.name)!.options.shown ? (
 										<Visibility />

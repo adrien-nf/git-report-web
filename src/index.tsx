@@ -53,7 +53,7 @@ const darkTheme = createTheme({
 			defaultProps: {
 				variant: "outlined",
 			}
-		}
+		},
 	}
 });
 
