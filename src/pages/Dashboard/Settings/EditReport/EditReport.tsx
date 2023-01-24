@@ -7,13 +7,11 @@ export default function EditReport(props: {
 	setReportData: Dispatch<SetStateAction<ReportData>>,
 }) {
 	const updateBefore = (before: string) => {
-		console.log(before);
 		props.setReportData(report => ({ ...report, before }))
 	}
 
 	const updateAfter = (after: string) => {
 		props.setReportData(report => ({ ...report, after }))
-
 	}
 
 	return (
