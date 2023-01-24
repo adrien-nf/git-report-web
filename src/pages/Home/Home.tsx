@@ -1,6 +1,6 @@
 import React from 'react';
 import Box from '@mui/material/Box';
-import { Grid, Skeleton, Stack, styled } from '@mui/material';
+import { Grid, Stack, styled } from '@mui/material';
 import { Container } from '@mui/system';
 import GitReportTitle from './GitReportTitle/GitReportTitle';
 import SubTitle from './SubTitle/SubTitle';
@@ -27,14 +27,6 @@ export default function Home() {
 								<Grid item xs={12} md={6}>
 									<GitReportTitle />
 									<SubTitle>Introducing a new way to analyze and report your Git activity. With our command-line script, you can quickly generate detailed reports of your commits. Easily see what you worked on and how much time you spent on it!</SubTitle>
-								</Grid>
-								<Grid item xs={12} md={6}>
-									<Skeleton variant="text" width="33%" sx={{ fontSize: '1rem' }} />
-									<Skeleton variant="text" sx={{ fontSize: '1rem' }} />
-									<Skeleton variant="text" sx={{ fontSize: '1rem' }} />
-									<Skeleton variant="text" width="33%" sx={{ fontSize: '1rem' }} />
-									<Skeleton variant="text" sx={{ fontSize: '1rem' }} />
-									<Skeleton variant="text" sx={{ fontSize: '1rem' }} />
 								</Grid>
 							</Grid>
 						</Stack>
