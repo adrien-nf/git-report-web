@@ -61,8 +61,13 @@ export function DataContextProvider({ children }: { children: React.ReactNode })
 	const { errorSnackbar } = useToasts();
 
 	const onCsvReceived = (results: any) => {
-		setProjects(mapData(results.data));
-		return navigate("/report");
+		const projects = mapData(results.data);
+		if (projects.size > 0) {
+			setProjects(projects);
+			return navigate("/report");
+		} else {
+			errorSnackbar("0 commits were retrieved. Couldn't generate report.")
+		}
 	}
 
 	useEffect(() => {
