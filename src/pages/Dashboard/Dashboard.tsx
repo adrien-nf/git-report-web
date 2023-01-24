@@ -11,6 +11,7 @@ import { ExporterFactory } from '../../services/Exporter/ExporterFactory';
 import { ExportType } from '../../services/Exporter/ExportType';
 import GithubLink from '../../components/GithubLink/GithubLink';
 import MadeBy from '../../components/MadeBy/MadeBy';
+import { useNavigate } from 'react-router-dom';
 
 const Wrapper = styled(Box)(({ theme }) => ({
 	display: "flex",
@@ -31,10 +32,14 @@ const Wrapper = styled(Box)(({ theme }) => ({
 }))
 
 export default function Dashboard() {
+	const navigate = useNavigate();
+
 	const { projects } = useContext(DataContext);
 
 	const [reportData, setReportData] = useState<ReportData>({
 		projects: new Map(),
+		before: "",
+		after: "",
 	});
 
 	const [selectedProject, setSelectedProject] = useState<Project>()
@@ -42,7 +47,7 @@ export default function Dashboard() {
 	const generateReportDataFrom = (projects: ParsedProjectMap): ReportData => {
 		const projectsToIterateOver = Array.from(projects.values());
 
-		const reportData: ReportData = { projects: new Map() };
+		const reportData: ReportData = { projects: new Map(), before: "", after: "" };
 
 		projectsToIterateOver.forEach(project => {
 			const newProject: Project = {
@@ -61,7 +66,12 @@ export default function Dashboard() {
 	}
 
 	useEffect(() => {
-		setReportData(generateReportDataFrom(projects))
+		if (projects.size > 0) {
+			setReportData(generateReportDataFrom(projects))
+		} else {
+			return navigate("/");
+		}
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [projects])
 
 	const exportAs = (as: ExportType) => {

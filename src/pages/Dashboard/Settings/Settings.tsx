@@ -67,10 +67,10 @@ export default function Settings(props: {
 	const updateTo = (date: Date) => {
 		const correctIndex = [...availableDates].reverse().findIndex((e) => e < date)
 
-		update([availableDates.length - correctIndex, availableDates.length - 1]);
+		updateDates([availableDates.length - correctIndex, availableDates.length - 1]);
 	}
 
-	const update = (values: number[]) => {
+	const updateDates = (values: number[]) => {
 		if (availableDates.length === 0) return;
 
 		const min = availableDates[values[0]];
@@ -78,7 +78,7 @@ export default function Settings(props: {
 
 		const projectsToIterateOver = Array.from(projects.values());
 
-		const reportData: ReportData = { projects: new Map() };
+		const reportData: ReportData = { projects: new Map(), before: props.reportData.before, after: props.reportData.after };
 
 		projectsToIterateOver.forEach(project => {
 			const newProject: Project = {
@@ -114,12 +114,22 @@ export default function Settings(props: {
 	}
 
 	const updateToAllTime = () => {
-		update([0, availableDates.length - 1]);
+		updateDates([0, availableDates.length - 1]);
 	}
 
 	const handleDateRangeChangeCommitted = (event: Event | React.SyntheticEvent<Element, Event>, values: number | number[]) => {
 		values = values as number[];
-		update(values);
+		updateDates(values);
+	}
+
+	const updateBefore = (before: string) => {
+		console.log(before);
+		props.setReportData(report => ({ ...report, before }))
+	}
+
+	const updateAfter = (after: string) => {
+		props.setReportData(report => ({ ...report, after }))
+
 	}
 
 	return (
@@ -178,13 +188,13 @@ export default function Settings(props: {
 				<Box>
 					<Stack>
 						<SectionTitle>Before</SectionTitle>
-						<TextField label="Before" multiline />
+						<TextField label="Before" multiline onChange={(event) => updateBefore(event.target.value)} />
 					</Stack>
 				</Box>
 				<Box>
 					<Stack>
 						<SectionTitle>After</SectionTitle>
-						<TextField label="After" multiline />
+						<TextField label="After" multiline onChange={(event) => updateAfter(event.target.value)} />
 					</Stack>
 				</Box>
 			</Stack >
