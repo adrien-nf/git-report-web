@@ -1,7 +1,6 @@
 import React from 'react';
 import Box from '@mui/material/Box';
-import { Stack, styled } from '@mui/material';
-import { Container } from '@mui/system';
+import { Stack, styled, Container } from '@mui/material';
 import CommandLine from './CommandLine/CommandLine';
 import Footer from '../../components/Footer/Footer';
 import GithubLink from '../../components/GithubLink/GithubLink';
