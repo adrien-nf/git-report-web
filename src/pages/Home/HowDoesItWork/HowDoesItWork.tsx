@@ -1,6 +1,6 @@
 import { Stack, Grid, Box } from "@mui/material";
 import SectionTitle from "../../../components/SectionTitle/SectionTitle";
-import Step from '../Step/Step';
+import Step from './Step/Step';
 
 export default function HowDoesItWork() {
 	return (
