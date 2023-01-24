@@ -9,6 +9,8 @@ import { ParsedProjectMap } from '../../types/ParsedProject';
 import Footer from '../../components/Footer/Footer';
 import { ExporterFactory } from '../../services/Exporter/ExporterFactory';
 import { ExportType } from '../../services/Exporter/ExportType';
+import GithubLink from '../../components/GithubLink/GithubLink';
+import MadeBy from '../../components/MadeBy/MadeBy';
 
 const Wrapper = styled(Box)(({ theme }) => ({
 	display: "flex",
@@ -71,9 +73,7 @@ export default function Dashboard() {
 			maxHeight: "100vh",
 			overflow: "hidden",
 		}}>
-			<Grid item xs={12} md={6} style={{
-				backgroundColor: "rgba(0, 0, 0, 0.38)",
-			}}>
+			<Grid item xs={12} lg={6}>
 				<Stack display="flex" direction="column" height="100vh">
 					<Wrapper>
 						<Settings
@@ -84,6 +84,15 @@ export default function Dashboard() {
 						/>
 					</Wrapper>
 					<Footer>
+						<Stack direction="row" justifyContent="space-between">
+							<Box>
+								{/* TODO: Logo here */}
+							</Box>
+							<Stack textAlign="right">
+								<GithubLink />
+								<MadeBy />
+							</Stack>
+						</Stack>
 					</Footer>
 				</Stack>
 			</Grid>

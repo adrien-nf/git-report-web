@@ -1,14 +1,15 @@
 import React from 'react';
 import Box from '@mui/material/Box';
-import { Grid, Link, Skeleton, Stack, styled, Typography } from '@mui/material';
+import { Grid, Skeleton, Stack, styled } from '@mui/material';
 import { Container } from '@mui/system';
 import GitReportTitle from './GitReportTitle/GitReportTitle';
 import SubTitle from './SubTitle/SubTitle';
 import SectionTitle from '../../components/SectionTitle/SectionTitle';
 import CommandLine from './CommandLine/CommandLine';
 import Step from './Step/Step';
-import GitHubIcon from '@mui/icons-material/GitHub';
 import Footer from '../../components/Footer/Footer';
+import GithubLink from '../../components/GithubLink/GithubLink';
+import MadeBy from '../../components/MadeBy/MadeBy';
 
 const BoxContainer = styled(Box)(({ theme }) => ({
 	paddingTop: theme.spacing(7),
@@ -72,18 +73,9 @@ export default function Home() {
 				textAlign: "center",
 			}}>
 				<Box component="div">
-					<Link href="https://github.com/adrien-nf/git-report-web" target="_blank" >
-						<GitHubIcon style={{
-							verticalAlign: "middle",
-							display: "inline-block",
-							fontSize: "1.25em"
-						}} /> <span style={{
-							verticalAlign: "text-top",
-							display: "inline-block"
-						}}>Git Report</span>
-					</Link>
+					<GithubLink />
+					<MadeBy />
 				</Box>
-				<Typography component="div">Made by <Link href="https://github.com/adrien-nf" target="_blank">Adrien NETO FERREIRA</Link> & <Link href="https://github.com/nathangobinet/" target="_blank">Nathan GOBINET</Link></Typography>
 			</Footer>
 		</React.Fragment >
 	);

@@ -7,6 +7,7 @@ import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import { ParsedProject } from "../../../types/ParsedProject";
 import { Project } from "../../../types/Project";
 import { DataContext } from "../../../contexts/DataContext/DataContext";
+import ButtonBadge from "../../../components/ButtonBadge/ButtonBadge";
 
 export default function Settings(props: {
 	reportData: ReportData,
@@ -140,11 +141,11 @@ export default function Settings(props: {
 						onChange={handleDateRangeChange}
 						onChangeCommitted={handleDateRangeChangeCommitted}
 					/>
-					<Stack direction="row">
-						<Button onClick={() => updateToDaysAgo(7)}>1 week</Button>
-						<Button onClick={() => updateToDaysAgo(14)}>2 weeks</Button>
-						<Button onClick={updateToLastMonth}>1 month</Button>
-						<Button onClick={updateToAllTime}>All time</Button>
+					<Stack direction="row" columnGap={2}>
+						<ButtonBadge onClick={() => updateToDaysAgo(7)}>1 week</ButtonBadge>
+						<ButtonBadge onClick={() => updateToDaysAgo(14)}>2 weeks</ButtonBadge>
+						<ButtonBadge onClick={updateToLastMonth}>1 month</ButtonBadge>
+						<ButtonBadge onClick={updateToAllTime}>All time</ButtonBadge>
 					</Stack>
 				</Box>
 				<Box>

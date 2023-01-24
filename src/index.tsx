@@ -42,6 +42,17 @@ const darkTheme = createTheme({
 					color: "#092d39",
 				}
 			}
+		},
+		MuiTextField: {
+			styleOverrides: {
+				root: {
+					backgroundColor: "#0B1316",
+					borderRadius: 0,
+				}
+			},
+			defaultProps: {
+				variant: "outlined",
+			}
 		}
 	}
 });
