@@ -21,6 +21,28 @@ const darkTheme = createTheme({
 			"Roboto",
 			'Caveat',
 		].join(','),
+	},
+	components: {
+		MuiSlider: {
+			styleOverrides: {
+				root: {
+					height: "2.5em",
+					borderRadius: 2,
+				},
+				thumb: {
+					color: "#00C2FF",
+					height: "2.5em",
+					borderRadius: 0,
+					width: "1em",
+				},
+				track: {
+					color: "#092d39",
+				},
+				rail: {
+					color: "#092d39",
+				}
+			}
+		}
 	}
 });
 
