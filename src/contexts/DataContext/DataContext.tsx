@@ -16,12 +16,14 @@ interface DataContextSpecs {
 	eventId: EventId,
 	projects: ParsedProjectMap,
 	isError: boolean,
+	isLoading: boolean,
 }
 
 export const DataContext = createContext<DataContextSpecs>({
 	eventId: undefined,
 	projects: new Map(),
 	isError: false,
+	isLoading: true,
 });
 
 const parseCommit = (e: any): Commit => ({
@@ -56,6 +58,7 @@ export function DataContextProvider({ children }: { children: React.ReactNode })
 	const [eventId, setEventId] = useState<EventId>(undefined);
 	const [projects, setProjects] = useState<ParsedProjectMap>(new Map());
 	const [isError, setIsError] = useState(false);
+	const [isLoading, setIsLoading] = useState(true);
 	const [isFileBackdropOpen, setIsFileBackdropOpen] = useState(false);
 
 	const { errorSnackbar } = useToasts();
@@ -75,6 +78,7 @@ export function DataContextProvider({ children }: { children: React.ReactNode })
 
 		sse.addEventListener("init", (event) => {
 			setEventId(event.lastEventId);
+			setIsLoading(false);
 		})
 
 		sse.addEventListener('commits-ready', (event) => {
@@ -85,6 +89,7 @@ export function DataContextProvider({ children }: { children: React.ReactNode })
 
 		sse.onerror = (e) => {
 			setIsError(true);
+			setIsLoading(false);
 			sse.close();
 		}
 
@@ -98,6 +103,7 @@ export function DataContextProvider({ children }: { children: React.ReactNode })
 		eventId,
 		projects,
 		isError,
+		isLoading,
 	};
 
 	return (

@@ -1,4 +1,4 @@
-import { CircularProgress, Paper, Stack, styled, Typography } from "@mui/material"
+import { CircularProgress, Paper, Stack, styled, Switch, Typography } from "@mui/material"
 import { useContext, useState } from "react"
 import { DataContext } from "../../../contexts/DataContext/DataContext"
 import ThatsYou from "../../../assets/ThatsYou.svg";
@@ -6,7 +6,7 @@ import SectionTitle from "../../../components/SectionTitle/SectionTitle";
 import LinkBadge from "../../../components/LinkBadge/LinkBadge";
 import ValidationTooltip from "../../../components/ValidationTooltip/ValidationTooltip";
 
-const BlackPaper = styled(Paper)(({ theme }) => ({
+const BlackPaperWithoutThatsYou = styled(Paper)(({ theme }) => ({
 	backgroundColor: theme.palette.common.black,
 	borderRadius: 2,
 	padding: theme.spacing(2),
@@ -17,6 +17,9 @@ const BlackPaper = styled(Paper)(({ theme }) => ({
 		marginLeft: theme.spacing(1),
 		color: "#00C2FF"
 	},
+}))
+
+const BlackPaper = styled(BlackPaperWithoutThatsYou)(({ theme }) => ({
 	"&::after": {
 		content: `url(${ThatsYou})`,
 		fontFamily: "Caveat",
@@ -29,23 +32,18 @@ const BlackPaper = styled(Paper)(({ theme }) => ({
 }))
 
 export default function CommandLine() {
-	const { eventId, isError } = useContext(DataContext);
+	const { eventId, isError, isLoading } = useContext(DataContext);
 
-	const [isCopied, setIsCopied] = useState(false);
+	const [isAutomatic, setIsAutomatic] = useState(true);
+
+	const getEventId = () => (isError || !isAutomatic) ? "static" : eventId!;
 
 	const getUrl = (): string => {
 		return window.location.href + "api/script/";
 	}
 
 	const getFullUrl = (): string => {
-		return window.location.href + "api/script/" + eventId;
-	}
-
-	const copy = () => {
-		if (eventId) {
-			navigator.clipboard.writeText(`sh -c "$(curl -fsSL ${getUrl()}${eventId})"`);
-			setIsCopied(true);
-		}
+		return window.location.href + "api/script/" + getEventId();
 	}
 
 	return (
@@ -53,41 +51,71 @@ export default function CommandLine() {
 			<Stack justifyContent="space-between" direction="row">
 				<SectionTitle>Get started now !</SectionTitle>
 				{
-					eventId ? (
-						<LinkBadge text="Show the full script" link={getFullUrl()} />
-					) : ""
+					(isError || isLoading) ? ""
+						: (
+							<Stack direction="row" alignItems="center">
+								<Typography variant="body1">Manual</Typography>
+								<Switch value={isAutomatic} onChange={(event) => setIsAutomatic(event.target.checked)} defaultChecked />
+								<Typography variant="body1">Automatic</Typography>
+							</Stack>
+						)
 				}
+				<LinkBadge text="Show the full script" link={getFullUrl()} />
 			</Stack>
 			{
-				eventId ? (
-					<ValidationTooltip isValidated={isCopied} setIsValidated={setIsCopied} validatedTitle="Copied" notValidatedTitle="Click to copy">
-						<BlackPaper onClick={copy}>
-							<span>sh -c "$(curl -fsSL {getUrl()}<span style={{ color: "#9AE7FF" }}>{eventId}</span>)"</span>
-						</BlackPaper>
-					</ValidationTooltip>
-				) : (
-					<LoadingOrError isError={isError} />
-				)
+				<LoadingOrScript getUrl={getUrl} isAutomatic={isAutomatic} eventId={getEventId()} />
 			}
 		</Stack>
 	)
 }
 
-const LoadingOrError = (props: {
-	isError: boolean,
+const LoadingOrScript = (props: {
+	getUrl: () => string,
+	isAutomatic: boolean,
+	eventId: string,
 }) => {
-	return props.isError ? (
-		<Typography
-			style={{
-				alignSelf: "center",
-			}}>
-			Could not establish connection to the server. Please drop a CSV file.
-		</Typography>
-	) : (
+	const { isLoading } = useContext(DataContext);
+
+	const [isCopied, setIsCopied] = useState(false);
+
+	return isLoading ? (
 		<CircularProgress
 			style={{
 				alignSelf: "center"
 			}}
 		/>
+	) : (
+		<ValidationTooltip isValidated={isCopied} setIsValidated={setIsCopied} validatedTitle="Copied" notValidatedTitle="Click to copy">
+			<AutomaticOrStatic getUrl={props.getUrl} isAutomatic={props.isAutomatic} eventId={props.eventId} />
+		</ValidationTooltip>
+	)
+}
+
+const AutomaticOrStatic = (props: {
+	getUrl: () => string,
+	isAutomatic: boolean,
+	eventId: string,
+}) => {
+	const [isCopied, setIsCopied] = useState(false);
+
+	const copy = () => {
+		navigator.clipboard.writeText(`sh -c "$(curl -fsSL ${props.getUrl()}${props.eventId})"`);
+		setIsCopied(true);
+	}
+
+	return (
+		<ValidationTooltip isValidated={isCopied} setIsValidated={setIsCopied} validatedTitle="Copied" notValidatedTitle="Click to copy">
+			{
+				props.eventId === "static" ? (
+					<BlackPaperWithoutThatsYou>
+						<span>sh -c "$(curl -fsSL {props.getUrl()}<span style={{ color: "#9AE7FF" }}>{props.eventId}</span>)"</span>
+					</BlackPaperWithoutThatsYou>
+				) : (
+					<BlackPaper onClick={copy}>
+						<span>sh -c "$(curl -fsSL {props.getUrl()}<span style={{ color: "#9AE7FF" }}>{props.eventId}</span>)"</span>
+					</BlackPaper>
+				)
+			}
+		</ValidationTooltip>
 	)
 }
