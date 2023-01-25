@@ -63,7 +63,7 @@ export default function CommandLine() {
 				<LinkBadge text="Show the full script" link={getFullUrl()} />
 			</Stack>
 			{
-				<LoadingOrScript getUrl={getUrl} isAutomatic={isAutomatic} eventId={getEventId()} />
+				<LoadingOrScript getUrl={getUrl} isAutomatic={isAutomatic} getEventId={getEventId} />
 			}
 		</Stack>
 	)
@@ -72,7 +72,7 @@ export default function CommandLine() {
 const LoadingOrScript = (props: {
 	getUrl: () => string,
 	isAutomatic: boolean,
-	eventId: string,
+	getEventId: () => string,
 }) => {
 	const { isLoading } = useContext(DataContext);
 
@@ -86,7 +86,7 @@ const LoadingOrScript = (props: {
 		/>
 	) : (
 		<ValidationTooltip isValidated={isCopied} setIsValidated={setIsCopied} validatedTitle="Copied" notValidatedTitle="Click to copy">
-			<AutomaticOrStatic getUrl={props.getUrl} isAutomatic={props.isAutomatic} eventId={props.eventId} />
+			<AutomaticOrStatic getUrl={props.getUrl} isAutomatic={props.isAutomatic} getEventId={props.getEventId} />
 		</ValidationTooltip>
 	)
 }
@@ -94,25 +94,25 @@ const LoadingOrScript = (props: {
 const AutomaticOrStatic = (props: {
 	getUrl: () => string,
 	isAutomatic: boolean,
-	eventId: string,
+	getEventId: () => string,
 }) => {
 	const [isCopied, setIsCopied] = useState(false);
 
 	const copy = () => {
-		navigator.clipboard.writeText(`sh -c "$(curl -fsSL ${props.getUrl()}${props.eventId})"`);
+		navigator.clipboard.writeText(`sh -c "$(curl -fsSL ${props.getUrl()}${props.getEventId()})"`);
 		setIsCopied(true);
 	}
 
 	return (
 		<ValidationTooltip isValidated={isCopied} setIsValidated={setIsCopied} validatedTitle="Copied" notValidatedTitle="Click to copy">
 			{
-				props.eventId === "static" ? (
-					<BlackPaperWithoutThatsYou>
-						<span>sh -c "$(curl -fsSL {props.getUrl()}<span style={{ color: "#9AE7FF" }}>{props.eventId}</span>)"</span>
+				props.getEventId() === "static" ? (
+					<BlackPaperWithoutThatsYou onClick={copy}>
+						<span>sh -c "$(curl -fsSL {props.getUrl()}<span style={{ color: "#9AE7FF" }}>{props.getEventId()}</span>)"</span>
 					</BlackPaperWithoutThatsYou>
 				) : (
 					<BlackPaper onClick={copy}>
-						<span>sh -c "$(curl -fsSL {props.getUrl()}<span style={{ color: "#9AE7FF" }}>{props.eventId}</span>)"</span>
+						<span>sh -c "$(curl -fsSL {props.getUrl()}<span style={{ color: "#9AE7FF" }}>{props.getEventId()}</span>)"</span>
 					</BlackPaper>
 				)
 			}
