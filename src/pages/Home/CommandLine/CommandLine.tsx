@@ -1,9 +1,10 @@
-import { CircularProgress, Paper, Stack, styled, Tooltip, Typography } from "@mui/material"
+import { CircularProgress, Paper, Stack, styled, Typography } from "@mui/material"
 import { useContext, useState } from "react"
 import { DataContext } from "../../../contexts/DataContext/DataContext"
 import ThatsYou from "../../../assets/ThatsYou.svg";
 import SectionTitle from "../../../components/SectionTitle/SectionTitle";
 import LinkBadge from "../../../components/LinkBadge/LinkBadge";
+import ValidationTooltip from "../../../components/ValidationTooltip/ValidationTooltip";
 
 const BlackPaper = styled(Paper)(({ theme }) => ({
 	backgroundColor: theme.palette.common.black,
@@ -59,11 +60,11 @@ export default function CommandLine() {
 			</Stack>
 			{
 				eventId ? (
-					<Tooltip title={isCopied ? "Copied" : "Click to copy"} onClose={() => setIsCopied(false)} placement="top">
+					<ValidationTooltip isValidated={isCopied} setIsValidated={setIsCopied} validatedTitle="Copied" notValidatedTitle="Click to copy">
 						<BlackPaper onClick={copy}>
 							<span>sh -c "$(curl -fsSL {getUrl()}<span style={{ color: "#9AE7FF" }}>{eventId}</span>)"</span>
 						</BlackPaper>
-					</Tooltip>
+					</ValidationTooltip>
 				) : (
 					<LoadingOrError isError={isError} />
 				)

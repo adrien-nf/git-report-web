@@ -12,6 +12,9 @@ import { ExportType } from '../../services/Exporter/ExportType';
 import GithubLink from '../../components/GithubLink/GithubLink';
 import MadeBy from '../../components/MadeBy/MadeBy';
 import { useNavigate } from 'react-router-dom';
+import AssignmentIcon from '@mui/icons-material/Assignment';
+import IntegrationInstructionsIcon from '@mui/icons-material/IntegrationInstructions';
+import ValidationTooltip from '../../components/ValidationTooltip/ValidationTooltip';
 
 const Wrapper = styled(Box)(({ theme }) => ({
 	display: "flex",
@@ -43,6 +46,8 @@ export default function Dashboard() {
 	});
 
 	const [selectedProject, setSelectedProject] = useState<Project>()
+
+	const [isExported, setIsExported] = useState(false);
 
 	const generateReportDataFrom = (projects: ParsedProjectMap): ReportData => {
 		const projectsToIterateOver = Array.from(projects.values());
@@ -76,6 +81,7 @@ export default function Dashboard() {
 
 	const exportAs = (as: ExportType) => {
 		(ExporterFactory.generate(as).export(reportData))
+		setIsExported(true);
 	}
 
 	return (
@@ -112,9 +118,13 @@ export default function Dashboard() {
 						<Report reportData={reportData} />
 					</Wrapper>
 					<Footer>
-						<Stack direction="row-reverse">
-							<Button onClick={() => exportAs(ExportType.Text)}>To Text</Button>
-							<Button onClick={() => exportAs(ExportType.Html)}>To HTML</Button>
+						<Stack direction="row-reverse" gap={2} paddingRight={2}>
+							<ValidationTooltip isValidated={isExported} setIsValidated={setIsExported} validatedTitle="Copied" notValidatedTitle="Copy to Text">
+								<Button onClick={() => exportAs(ExportType.Text)}><AssignmentIcon /></Button>
+							</ValidationTooltip>
+							<ValidationTooltip isValidated={isExported} setIsValidated={setIsExported} validatedTitle="Copied" notValidatedTitle="Copy to Html">
+								<Button onClick={() => exportAs(ExportType.Html)}><IntegrationInstructionsIcon /></Button>
+							</ValidationTooltip>
 						</Stack>
 					</Footer>
 				</Stack>
