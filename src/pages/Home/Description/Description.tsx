@@ -1,5 +1,5 @@
 import { Stack, Grid } from "@mui/material";
-import GitReportTitle from "../GitReportTitle/GitReportTitle";
+import GitReportTitle from "../../../components/GitReportTitle/GitReportTitle";
 import SubTitle from "../SubTitle/SubTitle";
 
 export default function Description() {

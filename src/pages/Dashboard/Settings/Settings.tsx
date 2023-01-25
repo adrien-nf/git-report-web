@@ -20,7 +20,7 @@ export default function Settings(props: {
 				<Topics reportData={props.reportData} setReportData={props.setReportData} selectedProject={props.selectedProject} setSelectedProject={props.setSelectedProject} />
 				<EditProject setReportData={props.setReportData} selectedProject={props.selectedProject} />
 				<EditReport setReportData={props.setReportData}></EditReport>
-			</Stack >
+			</Stack>
 		</Box >
 	)
 }

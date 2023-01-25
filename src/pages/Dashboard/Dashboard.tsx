@@ -15,6 +15,7 @@ import { useNavigate } from 'react-router-dom';
 import AssignmentIcon from '@mui/icons-material/Assignment';
 import IntegrationInstructionsIcon from '@mui/icons-material/IntegrationInstructions';
 import ValidationTooltip from '../../components/ValidationTooltip/ValidationTooltip';
+import GitReportTitle from '../../components/GitReportTitle/GitReportTitle';
 
 const Wrapper = styled(Box)(({ theme }) => ({
 	display: "flex",
@@ -100,10 +101,8 @@ export default function Dashboard() {
 						/>
 					</Wrapper>
 					<Footer>
-						<Stack direction="row" justifyContent="space-between">
-							<Box>
-								{/* TODO: Logo here */}
-							</Box>
+						<Stack direction="row" justifyContent="space-between" paddingLeft={2}>
+							<GitReportTitle variant="h3" />
 							<Stack textAlign="right">
 								<GithubLink />
 								<MadeBy />
