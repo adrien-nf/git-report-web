@@ -48,7 +48,7 @@ export default function CommandLine() {
 
 	return (
 		<Stack spacing={2}>
-			<Stack justifyContent="space-between" direction="row">
+			<Stack justifyContent="space-between" direction="row" alignItems="center">
 				<SectionTitle>Get started now !</SectionTitle>
 				{
 					(isError || isLoading) ? ""
