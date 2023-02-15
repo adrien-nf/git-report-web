@@ -92,7 +92,9 @@ export default function Dashboard() {
 		}}>
 			<Grid item xs={12} lg={6}>
 				<Stack display="flex" direction="column" height="100vh">
-					<Wrapper>
+					<Wrapper style={{
+						backgroundColor: "#050b0d"
+					}}>
 						<Settings
 							reportData={reportData}
 							setReportData={setReportData}
