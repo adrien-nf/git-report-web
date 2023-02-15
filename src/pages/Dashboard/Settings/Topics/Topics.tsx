@@ -29,7 +29,7 @@ export default function Topics(props: {
 	return (
 		<Stack>
 			<SectionTitle>Topics</SectionTitle>
-			<Stack direction="row" columnGap={2} rowGap={2} flexWrap="wrap">
+			<Stack direction="row" gap="12px" flexWrap="wrap">
 				{
 					(Array.from(props.reportData.projects.values())).map(e => (
 						<ButtonGroup size="small" aria-label="small button group" key={e.name}>

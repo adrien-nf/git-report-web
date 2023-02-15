@@ -14,6 +14,10 @@ const BoxContainer = styled(Box)(({ theme }) => ({
 	paddingBottom: theme.spacing(11),
 }))
 
+const HomeFooter = styled(Footer)(() => ({
+	textAlign: 'center',
+}))
+
 export default function Home() {
 	return (
 		<React.Fragment>
@@ -27,10 +31,10 @@ export default function Home() {
 					</Stack>
 				</Container>
 			</BoxContainer>
-			<Footer textAlign="center">
-				<GithubLink />
-				<MadeBy />
-			</Footer>
+			<HomeFooter>
+					<GithubLink />
+					<MadeBy />
+			</HomeFooter>
 		</React.Fragment >
 	);
 }

@@ -19,10 +19,11 @@ GitReportTitle.defaultProps = {
 }
 
 export default function GitReportTitle(props: {
-	variant: TypographyTypeMap["props"]["variant"]
+	variant: TypographyTypeMap["props"]["variant"],
+	noMargin?: boolean,
 }) {
 	return (
-		<Box marginBottom={3}>
+		<Box marginBottom={props.noMargin ? 0 : 3}>
 			<Wrap variant={props.variant} style={{
 				fontFamily: "Kanit",
 				letterSpacing: 0,

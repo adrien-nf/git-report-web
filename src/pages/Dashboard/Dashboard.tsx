@@ -21,7 +21,6 @@ const Wrapper = styled(Box)(({ theme }) => ({
 	display: "flex",
 	flexGrow: 1,
 	overflowY: "scroll",
-	padding: theme.spacing(2),
 	overflowX: "hidden",
 	'&::-webkit-scrollbar': {
 		width: '0.4em',
@@ -33,7 +32,11 @@ const Wrapper = styled(Box)(({ theme }) => ({
 	'&::-webkit-scrollbar-thumb': {
 		backgroundColor: theme.palette.primary.main,
 	}
-}))
+}));
+
+const DashboardFooter = styled(Footer)(({ theme }) => ({
+	padding: theme.spacing(3),
+}));
 
 export default function Dashboard() {
 	const navigate = useNavigate();
@@ -102,23 +105,23 @@ export default function Dashboard() {
 							setSelectedProject={setSelectedProject}
 						/>
 					</Wrapper>
-					<Footer>
+					<DashboardFooter>
 						<Stack direction="row" justifyContent="space-between" paddingLeft={2}>
-							<GitReportTitle variant="h3" />
+							<GitReportTitle noMargin variant="h3" />
 							<Stack textAlign="right">
 								<GithubLink />
 								<MadeBy />
 							</Stack>
 						</Stack>
-					</Footer>
+					</DashboardFooter>
 				</Stack>
 			</Grid>
 			<Grid item xs={12} md={6}>
 				<Stack display="flex" direction="column" height="100vh">
-					<Wrapper>
+					<Wrapper padding={3}>
 						<Report reportData={reportData} />
 					</Wrapper>
-					<Footer>
+					<DashboardFooter>
 						<Stack direction="row-reverse" gap={2} paddingRight={2}>
 							<ValidationTooltip isValidated={isExported} setIsValidated={setIsExported} validatedTitle="Copied" notValidatedTitle="Copy to Text">
 								<Button onClick={() => exportAs(ExportType.Text)}><AssignmentIcon /></Button>
@@ -127,7 +130,7 @@ export default function Dashboard() {
 								<Button onClick={() => exportAs(ExportType.Html)}><IntegrationInstructionsIcon /></Button>
 							</ValidationTooltip>
 						</Stack>
-					</Footer>
+					</DashboardFooter>
 				</Stack>
 			</Grid>
 		</Grid>
