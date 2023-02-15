@@ -11,6 +11,8 @@ const BlackPaperWithoutThatsYou = styled(Paper)(({ theme }) => ({
 	borderRadius: 2,
 	padding: theme.spacing(3),
 	cursor: "pointer",
+	fontSize: "18px",
+	fontFamily: '\'Ubuntu Mono\', monospace',
 	"&::before": {
 		content: '"$"',
 		marginRight: theme.spacing(2),

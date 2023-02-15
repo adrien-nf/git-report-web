@@ -18,10 +18,11 @@ const StyledTitle = styled(Typography)<{ noMargin?: boolean }>(({ noMargin }) =>
 export default function SectionTitle(props: {
 	children: React.ReactNode,
 	noMargin?: boolean,
+	className?: string,
 }) {
 	return (
 		<Box position="relative" width="fit-content">
-			<StyledTitle variant="h2" noMargin={props.noMargin}>
+			<StyledTitle className={props.className} variant="h2" noMargin={props.noMargin}>
 				{props.children}
 			</StyledTitle>
 		</Box>
