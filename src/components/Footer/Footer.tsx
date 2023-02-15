@@ -5,7 +5,8 @@ const StyledFooter = styled(('footer'))(({ theme }) => ({
 	backgroundColor: "rgba(0, 0, 0, 0.25)",
 	paddingTop: theme.spacing(7),
 	paddingBottom: theme.spacing(7),
-	width: "100%"
+	width: "100%",
+	fontSize: '18px',
 }))
 
 function Footer(props: {

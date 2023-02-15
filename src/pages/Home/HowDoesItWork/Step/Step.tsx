@@ -1,4 +1,4 @@
-import { Box, Stack, styled, Typography } from "@mui/material";
+import { Box, Stack, styled } from "@mui/material";
 
 const StyledBox = styled(Box)(({ theme }) => ({
 	background: "rgba(0, 209, 255, 0.03)",
@@ -6,9 +6,17 @@ const StyledBox = styled(Box)(({ theme }) => ({
 	padding: theme.spacing(2),
 }))
 
-const StepNumber = styled(Typography)(() => ({
+const StepTitle = styled(Stack)(() => ({
+	fontSize: '20px',
+	fontFamily: '\'Kanit\', sans-serif',
+	lineHeight: '1',
+	marginBottom: '10px'
+}));
+
+const StepNumber = styled('span')(() => ({
 	color: "#09C4FF",
 	fontWeight: "bold",
+	fontSize: '24px',
 }))
 
 export default function Step(props: {
@@ -18,11 +26,11 @@ export default function Step(props: {
 }) {
 	return (
 		<StyledBox>
-			<Stack direction="row" spacing={1}>
+			<StepTitle direction="row" spacing={1} alignItems="center">
 				<StepNumber>#{props.number}</StepNumber>
-				<Typography>-</Typography>
-				<Typography>{props.title}</Typography>
-			</Stack>
+				<span>-</span>
+				<span>{props.title}</span>
+			</StepTitle>
 			{props.children}
 		</StyledBox>
 	)

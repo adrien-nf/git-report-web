@@ -1,10 +1,5 @@
 import { styled, Typography, TypographyTypeMap } from "@mui/material";
 
-const Wrap = styled(Typography)(() => ({
-	fontFamily: "Kanit",
-	letterSpacing: 0,
-}))
-
 const Git = styled(Typography)(() => ({
 	textTransform: "uppercase",
 })) as typeof Typography
@@ -28,13 +23,13 @@ export default function GitReportTitle(props: {
 	};
 
 	return (
-		<Wrap {...props} style={style}>
+		<Typography {...props} style={style}>
 			<Git variant={props.variant} component="span">
 				Git
 			</Git>
 			<Report variant={props.variant} component="span">
 				Report
 			</Report>
-		</Wrap>
+		</Typography>
 	)
 }

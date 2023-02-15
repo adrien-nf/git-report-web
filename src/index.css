@@ -3,5 +3,4 @@ html {
 	background-attachment: fixed;
 }
 
-@import '~typeface-roboto/index.css';
-@import '~typeface-caveat/index.css';
+@import url('https://fonts.googleapis.com/css2?family=Kanit:wght@400;700&family=Open+Sans&family=Ubuntu+Mono&display=swap');
