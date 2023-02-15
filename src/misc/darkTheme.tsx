@@ -17,6 +17,15 @@ export const darkTheme = createTheme({
 			'Caveat',
 		].join(','),
 	},
+	breakpoints: {
+		values: {
+      xs: 0,
+      sm: 600,
+      md: 900,
+      lg: 1100,
+      xl: 1350,
+    },
+	},
 	components: {
 		MuiSlider: {
 			styleOverrides: {

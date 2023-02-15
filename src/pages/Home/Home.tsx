@@ -10,16 +10,16 @@ import WatchInAction from './WatchInAction/WatchInAction';
 import Description from './Description/Description';
 
 const BoxContainer = styled(Box)(({ theme }) => ({
-	paddingTop: theme.spacing(7),
-	paddingBottom: theme.spacing(7),
+	paddingTop: theme.spacing(11),
+	paddingBottom: theme.spacing(11),
 }))
 
 export default function Home() {
 	return (
 		<React.Fragment>
 			<BoxContainer>
-				<Container>
-					<Stack direction="column" spacing={8}>
+				<Container maxWidth="xl">
+					<Stack direction="column" spacing={10}>
 						<Description />
 						<CommandLine />
 						<HowDoesItWork />
