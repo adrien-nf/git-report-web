@@ -14,6 +14,9 @@ const darkTheme = createTheme({
 			default: "transparent",
 			paper: "transparent",
 		},
+		primary: {
+			"500": "#00c2ff",
+		},
 		mode: 'dark',
 	},
 	typography: {
@@ -30,7 +33,6 @@ const darkTheme = createTheme({
 					borderRadius: 2,
 				},
 				thumb: {
-					color: "#00C2FF",
 					height: "2.5em",
 					borderRadius: 0,
 					width: "1em",
@@ -63,16 +65,16 @@ const root = ReactDOM.createRoot(
 
 root.render(
 	<React.StrictMode>
-		<SnackbarProvider maxSnack={3}>
-			<BrowserRouter>
-				<DataContextProvider>
-					<ThemeProvider theme={darkTheme}>
-						<CssBaseline />
+		<ThemeProvider theme={darkTheme}>
+			<CssBaseline />
+			<SnackbarProvider maxSnack={3}>
+				<BrowserRouter>
+					<DataContextProvider>
 						<App />
-					</ThemeProvider>
-				</DataContextProvider>
-			</BrowserRouter>
-		</SnackbarProvider>
+					</DataContextProvider>
+				</BrowserRouter>
+			</SnackbarProvider>
+		</ThemeProvider>
 	</React.StrictMode>
 );
 
