@@ -6,8 +6,8 @@ import reportWebVitals from './reportWebVitals';
 import { CssBaseline, ThemeProvider } from '@mui/material';
 import { DataContextProvider } from "./contexts/DataContext/DataContext";
 import { BrowserRouter } from 'react-router-dom';
-import { SnackbarProvider } from 'notistack';
 import { darkTheme } from './misc/darkTheme';
+import SnackContextProvider from './contexts/SnackContext/SnackContext';
 
 const root = ReactDOM.createRoot(
 	document.getElementById('root') as HTMLElement
@@ -17,13 +17,13 @@ root.render(
 	<React.StrictMode>
 		<ThemeProvider theme={darkTheme}>
 			<CssBaseline />
-			<SnackbarProvider maxSnack={3}>
+			<SnackContextProvider>
 				<BrowserRouter>
 					<DataContextProvider>
 						<App />
 					</DataContextProvider>
 				</BrowserRouter>
-			</SnackbarProvider>
+			</SnackContextProvider>
 		</ThemeProvider>
 	</React.StrictMode>
 );

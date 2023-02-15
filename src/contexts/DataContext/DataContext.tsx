@@ -2,13 +2,13 @@ import React, { createContext, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Commit } from '../../types/Commit';
 import Dropzone from 'react-dropzone';
-import { RemoteParser } from '../Parsers/RemoteParser';
-import { LocalParser } from '../Parsers/LocalParser';
-import { useToasts } from '../../hooks/useToats';
+import { RemoteParser } from './Parsers/RemoteParser';
+import { LocalParser } from './Parsers/LocalParser';
 import { Backdrop, Typography } from '@mui/material';
 import FileDownloadIcon from '@mui/icons-material/FileDownload';
 import Stack from '@mui/material/Stack';
 import { ParsedProjectMap } from '../../types/ParsedProject';
+import { useSnack } from '../SnackContext/SnackContext';
 
 type EventId = string | undefined;
 
@@ -61,7 +61,7 @@ export function DataContextProvider({ children }: { children: React.ReactNode })
 	const [isLoading, setIsLoading] = useState(true);
 	const [isFileBackdropOpen, setIsFileBackdropOpen] = useState(false);
 
-	const { errorSnackbar } = useToasts();
+	const { errorSnackbar } = useSnack();
 
 	const onCsvReceived = (results: any) => {
 		const projects = mapData(results.data);
