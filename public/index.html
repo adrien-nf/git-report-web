@@ -1,10 +1,26 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" dir="ltr">
 
 <head>
 	<meta charset="utf-8" />
-	<link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
-	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+
+	<title>%REACT_APP_TITLE%</title>
+
+	<meta name="description" content="Fastest report creator, right from your commits.">
+
+	<link rel="icon" type="image/x-icon" href="%PUBLIC_URL%/favicon.ico" />
+
+	<!-- Apple Touch Icon (at least 200x200px) -->
+	<link rel="apple-touch-icon" href="%PUBLIC_URL%/logo512.png">
+
+	<!-- To run the web application in full-screen -->
+	<meta name="apple-mobile-web-app-capable" content="yes">
+
+	<!-- Status Bar Style (see Supported Meta Tags below for available values) -->
+	<!-- Has no effect unless you have the previous meta tag -->
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+
 	<meta name="theme-color" content="#000000" />
 	<meta name="description" content="%REACT_APP_DESCRIPTION%" />
 	<link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
@@ -22,7 +38,6 @@
       work correctly both with client-side routing and a non-root public URL.
       Learn how to configure a non-root public URL by running `npm run build`.
     -->
-	<title>%REACT_APP_TITLE%</title>
 </head>
 
 <body>
