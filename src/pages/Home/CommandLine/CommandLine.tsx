@@ -19,7 +19,7 @@ const BlackPaperWithoutThatsYou = styled(Paper)(({ theme }) => ({
 	},
 }))
 
-const BlackPaper = styled(BlackPaperWithoutThatsYou)(({ theme }) => ({
+const BlackPaper = styled(BlackPaperWithoutThatsYou)(() => ({
 	"&::after": {
 		content: `url(${ThatsYou})`,
 		fontFamily: "Caveat",
@@ -86,7 +86,9 @@ const LoadingOrScript = (props: {
 		/>
 	) : (
 		<ValidationTooltip isValidated={isCopied} setIsValidated={setIsCopied} validatedTitle="Copied" notValidatedTitle="Click to copy">
-			<AutomaticOrStatic getUrl={props.getUrl} isAutomatic={props.isAutomatic} getEventId={props.getEventId} />
+			<div>
+				<AutomaticOrStatic getUrl={props.getUrl} isAutomatic={props.isAutomatic} getEventId={props.getEventId} />
+			</div>
 		</ValidationTooltip>
 	)
 }
@@ -103,16 +105,20 @@ const AutomaticOrStatic = (props: {
 		setIsCopied(true);
 	}
 
+	const getCleanUrl = () => {
+		return props.getUrl().replace(/http.?:\/\//g, "");
+	}
+
 	return (
 		<ValidationTooltip isValidated={isCopied} setIsValidated={setIsCopied} validatedTitle="Copied" notValidatedTitle="Click to copy">
 			{
 				props.getEventId() === "static" ? (
 					<BlackPaperWithoutThatsYou onClick={copy}>
-						<span>sh -c "$(curl -fsSL {props.getUrl()}<span style={{ color: "#9AE7FF" }}>{props.getEventId()}</span>)"</span>
+						<span>sh -c "$(curl -fsSL {getCleanUrl()}<span style={{ color: "#9AE7FF" }}>{props.getEventId()}</span>)"</span>
 					</BlackPaperWithoutThatsYou>
 				) : (
 					<BlackPaper onClick={copy}>
-						<span>sh -c "$(curl -fsSL {props.getUrl()}<span style={{ color: "#9AE7FF" }}>{props.getEventId()}</span>)"</span>
+						<span>sh -c "$(curl -fsSL {getCleanUrl()}<span style={{ color: "#9AE7FF" }}>{props.getEventId()}</span>)"</span>
 					</BlackPaper>
 				)
 			}
