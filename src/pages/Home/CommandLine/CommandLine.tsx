@@ -9,7 +9,7 @@ import ValidationTooltip from "../../../components/ValidationTooltip/ValidationT
 const BlackPaperWithoutThatsYou = styled(Paper)(({ theme }) => ({
 	backgroundColor: theme.palette.common.black,
 	borderRadius: 2,
-	padding: theme.spacing(2),
+	padding: theme.spacing(3),
 	cursor: "pointer",
 	"&::before": {
 		content: '"$"',

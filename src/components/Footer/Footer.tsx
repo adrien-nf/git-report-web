@@ -4,8 +4,8 @@ import { ReactNode } from "react";
 
 const StyledFooter = styled(Box)(({ theme }) => ({
 	backgroundColor: "rgba(0, 0, 0, 0.25)",
-	paddingTop: theme.spacing(3),
-	paddingBottom: theme.spacing(3),
+	paddingTop: theme.spacing(7),
+	paddingBottom: theme.spacing(7),
 	width: "100%"
 }))
 
