@@ -9,7 +9,6 @@ import { ReportData } from "../../../../types/ReportData";
 const StyledIconButton = styled(Button)(() => ({
 	backgroundColor: "#101E21",
 	color: "#9AE7FF",
-	border: 0,
 }))
 
 export default function Topics(props: {
@@ -38,7 +37,7 @@ export default function Topics(props: {
 								backgroundColor: props.selectedProject === e ? "#092D39" : "#0B1316",
 								color: props.selectedProject === e ? "#9AE7FF" : "white",
 							}} variant="contained" onClick={() => props.setSelectedProject(e)}>{e.name}</Button>
-							<StyledIconButton onClick={() => toggleVisibility(e)}>
+							<StyledIconButton variant="contained" onClick={() => toggleVisibility(e)}>
 								{
 									props.reportData.projects.get(e.name)!.options.shown ? (
 										<Visibility />
