@@ -15,7 +15,7 @@ const BlackPaperWithoutThatsYou = styled(Paper)(({ theme }) => ({
 		content: '"$"',
 		marginRight: theme.spacing(2),
 		marginLeft: theme.spacing(1),
-		color: "#00C2FF"
+		color: theme.palette.primary.main
 	},
 }))
 

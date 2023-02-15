@@ -31,7 +31,7 @@ const Wrapper = styled(Box)(({ theme }) => ({
 		backgroundColor: "rgba(0, 194, 255, 0.15);",
 	},
 	'&::-webkit-scrollbar-thumb': {
-		backgroundColor: '#00C2FF',
+		backgroundColor: theme.palette.primary.main,
 	}
 }))
 

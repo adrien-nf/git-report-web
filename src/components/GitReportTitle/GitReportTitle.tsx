@@ -9,8 +9,8 @@ const Git = styled(Typography)(() => ({
 	textTransform: "uppercase",
 })) as typeof Typography
 
-const Report = styled(Typography)(() => ({
-	color: "#00C2FF",
+const Report = styled(Typography)(({ theme }) => ({
+	color: theme.palette.primary.main,
 	fontSize: "0.5em"
 })) as typeof Typography
 
