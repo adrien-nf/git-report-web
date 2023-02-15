@@ -1,7 +1,8 @@
-import { Box, styled } from "@mui/material"
+import { Box, styled, Typography } from "@mui/material"
 
 
-const StyledTitle = styled("span")(() => ({
+const StyledTitle = styled(Typography)<{ noMargin?: boolean }>(({ noMargin }) => ({
+	...(noMargin && { marginBottom: 0 }),
 	"&::before": {
 		content: '""',
 		position: "absolute",
@@ -15,11 +16,14 @@ const StyledTitle = styled("span")(() => ({
 }))
 
 export default function SectionTitle(props: {
-	children: React.ReactNode
+	children: React.ReactNode,
+	noMargin?: boolean,
 }) {
 	return (
 		<Box position="relative" width="fit-content">
-			<StyledTitle>{props.children}</StyledTitle>
+			<StyledTitle variant="h2" noMargin={props.noMargin}>
+				{props.children}
+			</StyledTitle>
 		</Box>
 	)
 }

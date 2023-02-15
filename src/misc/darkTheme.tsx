@@ -12,6 +12,11 @@ export const darkTheme = createTheme({
 		mode: 'dark',
 	},
 	typography: {
+		h2: {
+			fontSize: '22px',
+			fontWeight: 400,
+			marginBottom: '25px',
+		},
 		fontFamily: [
 			"Roboto",
 			'Caveat',

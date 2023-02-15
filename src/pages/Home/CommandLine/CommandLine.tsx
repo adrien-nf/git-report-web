@@ -47,9 +47,9 @@ export default function CommandLine() {
 	}
 
 	return (
-		<Stack spacing={2}>
-			<Stack justifyContent="space-between" direction="row" alignItems="center">
-				<SectionTitle>Get started now !</SectionTitle>
+		<section id="script">
+			<Stack marginBottom="25px" justifyContent="space-between" direction="row" alignItems="center">
+				<SectionTitle noMargin>Get started now !</SectionTitle>
 				{
 					(isError || isLoading) ? ""
 						: (
@@ -65,7 +65,7 @@ export default function CommandLine() {
 			{
 				<LoadingOrScript getUrl={getUrl} isAutomatic={isAutomatic} getEventId={getEventId} />
 			}
-		</Stack>
+		</section>
 	)
 }
 
