@@ -16,6 +16,8 @@ export default function Description() {
 						userSelect: "none",
 						MozUserSelect: "none",
 						WebkitUserSelect: "none",
+						display: 'block',
+						marginLeft: 'auto'
 					}} draggable="false" alt="Logo GitReport" />
 				</Grid>
 			</Grid>
