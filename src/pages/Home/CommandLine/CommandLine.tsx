@@ -49,7 +49,7 @@ export default function CommandLine() {
 	return (
 		<section id="script">
 			<Stack marginBottom="25px" justifyContent="space-between" direction="row" alignItems="center">
-				<SectionTitle noMargin>Get started now !</SectionTitle>
+				<SectionTitle style={{ marginBottom: 0 }}>Get started now !</SectionTitle>
 				{
 					(isError || isLoading) ? ""
 						: (

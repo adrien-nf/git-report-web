@@ -12,6 +12,9 @@ export const darkTheme = createTheme({
 		mode: 'dark',
 	},
 	typography: {
+		h1: {
+			marginBottom: '25px',
+		},
 		h2: {
 			fontSize: '22px',
 			fontWeight: 400,

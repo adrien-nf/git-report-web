@@ -107,7 +107,7 @@ export default function Dashboard() {
 					</Wrapper>
 					<DashboardFooter>
 						<Stack direction="row" justifyContent="space-between" paddingLeft={2}>
-							<GitReportTitle noMargin variant="h3" />
+							<GitReportTitle style={{ marginBottom: 0 }} variant="h3" />
 							<Stack textAlign="right">
 								<GithubLink />
 								<MadeBy />
