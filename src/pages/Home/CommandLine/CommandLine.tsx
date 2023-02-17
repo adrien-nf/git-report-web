@@ -1,4 +1,4 @@
-import { CircularProgress, Paper, Stack, styled, Switch, Typography } from "@mui/material"
+import { CircularProgress, Stack, styled, Switch, Typography } from "@mui/material"
 import { useContext, useState } from "react"
 import { DataContext } from "../../../contexts/DataContext/DataContext"
 import ThatsYou from "../../../assets/ThatsYou.svg";
@@ -6,8 +6,9 @@ import SectionTitle from "../../../components/SectionTitle/SectionTitle";
 import LinkBadge from "../../../components/LinkBadge/LinkBadge";
 import ValidationTooltip from "../../../components/ValidationTooltip/ValidationTooltip";
 
-const BlackPaperWithoutThatsYou = styled(Paper)(({ theme }) => ({
-	backgroundColor: theme.palette.common.black,
+const BlackPaperWithoutThatsYou = styled('div')(({ theme }) => ({
+	background: 'rgba(0, 0, 0, 0.42)',
+	backdropFilter: 'blur(2px)',
 	borderRadius: 2,
 	padding: theme.spacing(3),
 	cursor: "pointer",
@@ -78,8 +79,6 @@ const LoadingOrScript = (props: {
 }) => {
 	const { isLoading } = useContext(DataContext);
 
-	const [isCopied, setIsCopied] = useState(false);
-
 	return isLoading ? (
 		<CircularProgress
 			style={{
@@ -87,11 +86,7 @@ const LoadingOrScript = (props: {
 			}}
 		/>
 	) : (
-		<ValidationTooltip isValidated={isCopied} setIsValidated={setIsCopied} validatedTitle="Copied" notValidatedTitle="Click to copy">
-			<div>
-				<AutomaticOrStatic getUrl={props.getUrl} isAutomatic={props.isAutomatic} getEventId={props.getEventId} />
-			</div>
-		</ValidationTooltip>
+		<AutomaticOrStatic getUrl={props.getUrl} isAutomatic={props.isAutomatic} getEventId={props.getEventId} />
 	)
 }
 
