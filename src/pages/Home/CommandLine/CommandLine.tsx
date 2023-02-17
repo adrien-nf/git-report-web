@@ -77,8 +77,6 @@ const LoadingOrScript = (props: {
 }) => {
 	const { isLoading } = useContext(DataContext);
 
-	const [isCopied, setIsCopied] = useState(false);
-
 	return isLoading ? (
 		<CircularProgress
 			style={{
@@ -86,11 +84,7 @@ const LoadingOrScript = (props: {
 			}}
 		/>
 	) : (
-		<ValidationTooltip isValidated={isCopied} setIsValidated={setIsCopied} validatedTitle="Copied" notValidatedTitle="Click to copy">
-			<div>
-				<AutomaticOrStatic getUrl={props.getUrl} isAutomatic={props.isAutomatic} getEventId={props.getEventId} />
-			</div>
-		</ValidationTooltip>
+		<AutomaticOrStatic getUrl={props.getUrl} isAutomatic={props.isAutomatic} getEventId={props.getEventId} />
 	)
 }
 
