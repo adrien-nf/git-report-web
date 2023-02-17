@@ -12,10 +12,32 @@ export const darkTheme = createTheme({
 		mode: 'dark',
 	},
 	typography: {
-		fontFamily: [
-			"Roboto",
-			'Caveat',
-		].join(','),
+		h1: {
+			marginBottom: '25px',
+			fontFamily: '\'Kanit\', sans-serif',
+			fontWeight: 400,
+		},
+		h2: {
+			fontSize: '22px',
+			fontWeight: 400,
+			marginBottom: '25px',
+			fontFamily: '\'Kanit\', sans-serif'
+		},
+		h3: {
+			fontWeight: 400,
+			fontFamily: '\'Kanit\', sans-serif',
+		},
+		fontFamily: '\'Open Sans\', sans-serif',
+		fontSize: 14,
+	},
+	breakpoints: {
+		values: {
+			xs: 0,
+			sm: 600,
+			md: 900,
+			lg: 1100,
+			xl: 1350,
+		},
 	},
 	components: {
 		MuiSlider: {
@@ -52,6 +74,19 @@ export const darkTheme = createTheme({
 			defaultProps: {
 				underline: "none",
 			}
+		},
+		MuiButton: {
+			styleOverrides: {
+				root: {
+					fontSize: '16px',
+					fontFamily: '\'Kanit\', sans-serif',
+					textTransform: "none",
+					boxShadow: 'none',
+					':hover': {
+						boxShadow: 'none',
+					}
+        }
+	    }
 		},
 		MuiCssBaseline: {
 			styleOverrides: {

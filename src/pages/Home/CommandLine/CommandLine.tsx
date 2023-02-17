@@ -10,8 +10,10 @@ const BlackPaperWithoutThatsYou = styled('div')(({ theme }) => ({
 	background: 'rgba(0, 0, 0, 0.42)',
 	backdropFilter: 'blur(2px)',
 	borderRadius: 2,
-	padding: theme.spacing(2),
+	padding: theme.spacing(3),
 	cursor: "pointer",
+	fontSize: "18px",
+	fontFamily: '\'Ubuntu Mono\', monospace',
 	"&::before": {
 		content: '"$"',
 		marginRight: theme.spacing(2),
@@ -48,9 +50,9 @@ export default function CommandLine() {
 	}
 
 	return (
-		<Stack spacing={2}>
-			<Stack justifyContent="space-between" direction="row" alignItems="center">
-				<SectionTitle>Get started now !</SectionTitle>
+		<section id="script">
+			<Stack marginBottom="25px" justifyContent="space-between" direction="row" alignItems="center">
+				<SectionTitle style={{ marginBottom: 0 }}>Get started now !</SectionTitle>
 				{
 					(isError || isLoading) ? ""
 						: (
@@ -66,7 +68,7 @@ export default function CommandLine() {
 			{
 				<LoadingOrScript getUrl={getUrl} isAutomatic={isAutomatic} getEventId={getEventId} />
 			}
-		</Stack>
+		</section>
 	)
 }
 

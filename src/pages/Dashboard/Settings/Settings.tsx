@@ -15,7 +15,7 @@ export default function Settings(props: {
 }) {
 	return (
 		<Box flexGrow={1}>
-			<Stack spacing={5}>
+			<Stack spacing={5} padding={4}>
 				<Filters reportData={props.reportData} setReportData={props.setReportData} selectedProject={props.selectedProject} setSelectedProject={props.setSelectedProject} />
 				<Topics reportData={props.reportData} setReportData={props.setReportData} selectedProject={props.selectedProject} setSelectedProject={props.setSelectedProject} />
 				<EditProject setReportData={props.setReportData} selectedProject={props.selectedProject} />

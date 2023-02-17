@@ -1,8 +1,17 @@
-import { Stack, TextField } from "@mui/material";
+import { Stack, styled, TextField } from "@mui/material";
 import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import SectionTitle from "../../../../components/SectionTitle/SectionTitle";
 import { Project } from "../../../../types/Project";
 import { ReportData } from "../../../../types/ReportData";
+
+const EditProjectTitle = styled(SectionTitle)(() => ({
+	'&::before': {
+		width: '54px',
+	},
+	'& > span': {
+		fontSize: '16px',
+	}
+}))
 
 export default function EditProject(props: {
 	selectedProject: Project | undefined,
@@ -30,7 +39,7 @@ export default function EditProject(props: {
 
 	return (
 		<Stack>
-			<SectionTitle>Items <span>{props.selectedProject?.name}</span></SectionTitle>
+			<EditProjectTitle>Items <span>[{props.selectedProject?.name}]</span></EditProjectTitle>
 			<TextField label="Commits" multiline value={commits} onChange={(e) => setCommits(e.target.value)} />
 		</Stack>
 	)

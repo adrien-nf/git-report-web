@@ -1,4 +1,4 @@
-import { Stack, Slider } from "@mui/material";
+import { Stack, Slider, styled } from "@mui/material";
 import { Dispatch, SetStateAction, useContext, useEffect, useState } from "react";
 import ButtonBadge from "../../../../components/ButtonBadge/ButtonBadge";
 import SectionTitle from "../../../../components/SectionTitle/SectionTitle";
@@ -6,6 +6,10 @@ import { DataContext } from "../../../../contexts/DataContext/DataContext";
 import { ParsedProject } from "../../../../types/ParsedProject";
 import { Project } from "../../../../types/Project";
 import { ReportData } from "../../../../types/ReportData";
+
+const SliderContainer = styled('div')(() => ({
+	marginTop: '-14px',
+}));
 
 export default function Filters(props: {
 	reportData: ReportData,
@@ -93,28 +97,30 @@ export default function Filters(props: {
 	}, [projects])
 
 	return (
-		<Stack>
+		<section id="date">
 			<SectionTitle>Date range</SectionTitle>
-			<Slider
-				getAriaLabel={() => 'Commits date range'}
-				valueLabelDisplay="auto"
-				valueLabelFormat={(value: number) => {
-					if (typeof availableDates[value] === "undefined") return "";
+			<SliderContainer>
+				<Slider
+					getAriaLabel={() => 'Commits date range'}
+					valueLabelDisplay="auto"
+					valueLabelFormat={(value: number) => {
+						if (typeof availableDates[value] === "undefined") return "";
 
-					return availableDates[value].toDateString()
-				}}
-				value={pickedDates}
-				min={0}
-				max={availableDates.length - 1}
-				onChange={handleDateRangeChange}
-				onChangeCommitted={handleDateRangeChangeCommitted}
-			/>
+						return availableDates[value].toDateString()
+					}}
+					value={pickedDates}
+					min={0}
+					max={availableDates.length - 1}
+					onChange={handleDateRangeChange}
+					onChangeCommitted={handleDateRangeChangeCommitted}
+				/>
+			</SliderContainer>
 			<Stack direction="row" columnGap={2}>
 				<ButtonBadge onClick={() => updateToDaysAgo(7)}>1 week</ButtonBadge>
 				<ButtonBadge onClick={() => updateToDaysAgo(14)}>2 weeks</ButtonBadge>
 				<ButtonBadge onClick={updateToLastMonth}>1 month</ButtonBadge>
 				<ButtonBadge onClick={updateToAllTime}>All time</ButtonBadge>
 			</Stack>
-		</Stack>
+		</section>
 	)
 }

@@ -9,7 +9,15 @@ import { ReportData } from "../../../../types/ReportData";
 const StyledIconButton = styled(Button)(() => ({
 	backgroundColor: "#101E21",
 	color: "#9AE7FF",
-}))
+}));
+
+const TopicButton = styled(Button)<{ selected: boolean }>(({ selected }) => ({
+	backgroundColor: selected ? "#092D39" : "#0B1316",
+	color: selected ? "#9AE7FF" : "white",
+	':hover': {
+		backgroundColor: selected ? "#092D39" : "#101E21",
+	},
+}));
 
 export default function Topics(props: {
 	reportData: ReportData,
@@ -29,14 +37,16 @@ export default function Topics(props: {
 	return (
 		<Stack>
 			<SectionTitle>Topics</SectionTitle>
-			<Stack direction="row" columnGap={2} rowGap={2} flexWrap="wrap">
+			<Stack direction="row" gap="12px" flexWrap="wrap">
 				{
 					(Array.from(props.reportData.projects.values())).map(e => (
 						<ButtonGroup size="small" aria-label="small button group" key={e.name}>
-							<Button style={{
-								backgroundColor: props.selectedProject === e ? "#092D39" : "#0B1316",
-								color: props.selectedProject === e ? "#9AE7FF" : "white",
-							}} variant="contained" onClick={() => props.setSelectedProject(e)}>{e.name}</Button>
+							<TopicButton
+								selected={props.selectedProject === e}
+								variant="contained"
+								onClick={() => props.setSelectedProject(e)}>
+								{e.name}
+							</TopicButton>
 							<StyledIconButton variant="contained" onClick={() => toggleVisibility(e)}>
 								{
 									props.reportData.projects.get(e.name)!.options.shown ? (

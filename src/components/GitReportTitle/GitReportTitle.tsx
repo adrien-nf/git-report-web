@@ -1,9 +1,4 @@
-import { Box, styled, Typography, TypographyTypeMap } from "@mui/material";
-
-const Wrap = styled(Typography)(() => ({
-	fontFamily: "Kanit",
-	letterSpacing: 0,
-}))
+import { styled, Typography, TypographyTypeMap } from "@mui/material";
 
 const Git = styled(Typography)(() => ({
 	textTransform: "uppercase",
@@ -19,21 +14,22 @@ GitReportTitle.defaultProps = {
 }
 
 export default function GitReportTitle(props: {
-	variant: TypographyTypeMap["props"]["variant"]
-}) {
+	variant: TypographyTypeMap["props"]["variant"],
+} & React.HTMLAttributes<HTMLTitleElement>) {
+	const style = {
+		...props.style,
+		fontFamily: "Kanit",
+		letterSpacing: 0,
+	};
+
 	return (
-		<Box>
-			<Wrap variant={props.variant} style={{
-				fontFamily: "Kanit",
-				letterSpacing: 0,
-			}}>
-				<Git variant={props.variant} component="span">
-					Git
-				</Git>
-				<Report variant={props.variant} component="span">
-					Report
-				</Report>
-			</Wrap>
-		</Box>
+		<Typography {...props} style={style}>
+			<Git variant={props.variant} component="span">
+				Git
+			</Git>
+			<Report variant={props.variant} component="span">
+				Report
+			</Report>
+		</Typography>
 	)
 }

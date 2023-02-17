@@ -1,10 +1,10 @@
-import { Stack, Grid, Box } from "@mui/material";
+import { Grid, Box } from "@mui/material";
 import SectionTitle from "../../../components/SectionTitle/SectionTitle";
 import Step from './Step/Step';
 
 export default function HowDoesItWork() {
 	return (
-		<Stack direction="column" spacing={2}>
+		<section id="how-it-works">
 			<SectionTitle>How does it work?</SectionTitle>
 			<Box>
 				<Grid container columnSpacing={12} rowSpacing={2}>
@@ -19,6 +19,6 @@ export default function HowDoesItWork() {
 					</Grid>
 				</Grid>
 			</Box>
-		</Stack>
+		</section>
 	)
 }
