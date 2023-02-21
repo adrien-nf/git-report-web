@@ -27,7 +27,6 @@ const BlackPaper = styled(BlackPaperWithoutThatsYou)(() => ({
 		content: `url(${ThatsYou})`,
 		fontFamily: "Caveat",
 		fontSize: "1.5em",
-		transform: "rotate(-3.47deg)",
 		marginTop: "1em",
 		marginLeft: "-5em",
 		position: "absolute",
