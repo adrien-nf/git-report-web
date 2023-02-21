@@ -51,7 +51,15 @@ export default function CommandLine() {
 
 	return (
 		<section id="script">
-			<Stack marginBottom="25px" justifyContent="space-between" direction="row" alignItems="center">
+			<Stack
+				marginBottom="25px"
+				justifyContent="space-between"
+				direction={{
+					xs: "column",
+					sm: "row"
+				}}
+				alignItems="center"
+			>
 				<SectionTitle style={{ marginBottom: 0 }}>Get started now !</SectionTitle>
 				{
 					(isError || isLoading) ? ""
