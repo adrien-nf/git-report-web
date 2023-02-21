@@ -20,7 +20,7 @@ const BlackPaperWithoutThatsYou = styled('div')(({ theme }) => ({
 		marginLeft: theme.spacing(1),
 		color: theme.palette.primary.main
 	},
-}))
+}));
 
 const BlackPaper = styled(BlackPaperWithoutThatsYou)(() => ({
 	"&::after": {
@@ -32,7 +32,38 @@ const BlackPaper = styled(BlackPaperWithoutThatsYou)(() => ({
 		marginLeft: "-5em",
 		position: "absolute",
 	}
-}))
+}));
+
+const ModeSwitch = styled(Switch)(({ theme }) => ({
+	width: 50,
+	height: 25,
+	padding: 0,
+	display: 'flex',
+	'& .MuiSwitch-switchBase': {
+		padding: 0,
+		color: '#006788',
+		'& + .MuiSwitch-track': {
+			opacity: 1,
+			backgroundColor: '#12292F'
+		},
+		'&.Mui-checked': {
+			transform: 'translateX(25px)',
+			color: '#00C2FF',
+		},
+	},
+	'& .MuiSwitch-thumb': {
+		width: 25,
+		height: 25,
+		borderRadius: '50%',
+	},
+	'& .MuiSwitch-track': {
+		borderRadius: 25 / 2,
+		opacity: 1,
+		backgroundColor:
+			theme.palette.mode === 'dark' ? 'rgba(255,255,255,.35)' : 'rgba(0,0,0,.25)',
+		boxSizing: 'border-box',
+	},
+}));
 
 export default function CommandLine() {
 	const { eventId, isError, isLoading } = useContext(DataContext);
@@ -61,16 +92,13 @@ export default function CommandLine() {
 				alignItems="center"
 			>
 				<SectionTitle style={{ marginBottom: 0 }}>Get started now !</SectionTitle>
-				{
-					(isError || isLoading) ? ""
-						: (
-							<Stack direction="row" alignItems="center">
-								<Typography variant="body1">Manual</Typography>
-								<Switch value={isAutomatic} onChange={(event) => setIsAutomatic(event.target.checked)} defaultChecked />
-								<Typography variant="body1">Automatic</Typography>
-							</Stack>
-						)
-				}
+				{(!isError && !isLoading) && (
+					<Stack direction="row" alignItems="center" gap="10px">
+						<Typography color="#E0E0E0" variant="body1">Manual</Typography>
+						<ModeSwitch value={isAutomatic} onChange={(event) => setIsAutomatic(event.target.checked)} defaultChecked />
+						<Typography color="#E0E0E0" variant="body1">Automatic</Typography>
+					</Stack>
+				)}
 				<LinkBadge text="Show the full script" link={getFullUrl()} />
 			</Stack>
 			{
