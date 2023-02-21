@@ -17,7 +17,7 @@ export class HtmlExporter implements Exporter {
 		buffer.push(`<p>${reportData.after}</p>`)
 
 		var type = "text/html";
-		var blob = new Blob([buffer.join("")], { type });
+		var blob = new Blob([buffer.join("").trim()], { type });
 		var data = [new ClipboardItem({ [type]: blob })];
 
 		navigator.clipboard.write(data);

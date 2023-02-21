@@ -84,8 +84,19 @@ export default function Dashboard() {
 	}, [projects])
 
 	const exportAs = (as: ExportType) => {
-		(ExporterFactory.generate(as).export(reportData))
+		(ExporterFactory.generate(as).export(getFilteredReportData()))
 		setIsExported(true);
+	}
+
+	const getFilteredReportData = (): ReportData => {
+		const newReportData: ReportData = { ...reportData, projects: new Map() };
+
+		reportData.projects.forEach((v: Project, k: string) => {
+			if (v.options.shown)
+				newReportData.projects.set(k, v);
+		})
+
+		return newReportData;
 	}
 
 	return (

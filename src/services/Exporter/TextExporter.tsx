@@ -14,6 +14,6 @@ export class TextExporter implements Exporter {
 
 		buffer.push(reportData.after);
 
-		navigator.clipboard.writeText(buffer.join("\n"));
+		navigator.clipboard.writeText(buffer.join("\n").trim());
 	}
 }
