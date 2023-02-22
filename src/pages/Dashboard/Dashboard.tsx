@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { Box, Button, Grid, Stack, styled } from '@mui/material';
+import { Box, Grid, Stack, styled } from '@mui/material';
 import Report from './Report/Report';
 import { DataContext } from '../../contexts/DataContext/DataContext';
 import { ReportData } from '../../types/ReportData';
@@ -7,15 +7,11 @@ import Settings from './Settings/Settings';
 import { Project } from '../../types/Project';
 import { ParsedProjectMap } from '../../types/ParsedProject';
 import Footer from '../../components/Footer/Footer';
-import { ExporterFactory } from '../../services/Exporter/ExporterFactory';
-import { ExportType } from '../../services/Exporter/ExportType';
 import GithubLink from '../../components/GithubLink/GithubLink';
 import MadeBy from '../../components/MadeBy/MadeBy';
 import { useNavigate } from 'react-router-dom';
-import AssignmentIcon from '@mui/icons-material/Assignment';
-import IntegrationInstructionsIcon from '@mui/icons-material/IntegrationInstructions';
-import ValidationTooltip from '../../components/ValidationTooltip/ValidationTooltip';
 import GitReportTitle from '../../components/GitReportTitle/GitReportTitle';
+import CopyButtons from './Report/CopyButtons';
 
 const Wrapper = styled(Box)(({ theme }) => ({
 	display: "flex",
@@ -38,6 +34,7 @@ const DashboardFooter = styled(Footer)(({ theme }) => ({
 	padding: theme.spacing(3),
 }));
 
+
 export default function Dashboard() {
 	const navigate = useNavigate();
 
@@ -50,8 +47,6 @@ export default function Dashboard() {
 	});
 
 	const [selectedProject, setSelectedProject] = useState<Project>()
-
-	const [isExported, setIsExported] = useState(false);
 
 	const generateReportDataFrom = (projects: ParsedProjectMap): ReportData => {
 		const projectsToIterateOver = Array.from(projects.values());
@@ -82,22 +77,6 @@ export default function Dashboard() {
 		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [projects])
-
-	const exportAs = (as: ExportType) => {
-		(ExporterFactory.generate(as).export(getFilteredReportData()))
-		setIsExported(true);
-	}
-
-	const getFilteredReportData = (): ReportData => {
-		const newReportData: ReportData = { ...reportData, projects: new Map() };
-
-		reportData.projects.forEach((v: Project, k: string) => {
-			if (v.options.shown)
-				newReportData.projects.set(k, v);
-		})
-
-		return newReportData;
-	}
 
 	return (
 		<Grid container style={{
@@ -132,16 +111,7 @@ export default function Dashboard() {
 					<Wrapper padding={3}>
 						<Report reportData={reportData} />
 					</Wrapper>
-					<DashboardFooter>
-						<Stack direction="row-reverse" gap={2} paddingRight={2}>
-							<ValidationTooltip isValidated={isExported} setIsValidated={setIsExported} validatedTitle="Copied" notValidatedTitle="Copy to Text">
-								<Button onClick={() => exportAs(ExportType.Text)}><AssignmentIcon /></Button>
-							</ValidationTooltip>
-							<ValidationTooltip isValidated={isExported} setIsValidated={setIsExported} validatedTitle="Copied" notValidatedTitle="Copy to Html">
-								<Button onClick={() => exportAs(ExportType.Html)}><IntegrationInstructionsIcon /></Button>
-							</ValidationTooltip>
-						</Stack>
-					</DashboardFooter>
+					<CopyButtons reportData={reportData}  />
 				</Stack>
 			</Grid>
 		</Grid>
