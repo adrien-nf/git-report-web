@@ -18,7 +18,7 @@ export default function SectionTitle(props: {
 	children: React.ReactNode,
 } & React.HTMLAttributes<HTMLTitleElement>) {
 	return (
-		<Box position="relative" width="fit-content">
+		<Box position="relative" width="fit-content" zIndex={0}>
 			<StyledTitle variant="h2" {...props}>
 				{props.children}
 			</StyledTitle>
