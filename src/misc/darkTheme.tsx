@@ -92,6 +92,7 @@ export const darkTheme = createTheme({
 			styleOverrides: {
 				body: {
 					backgroundImage: 'radial-gradient(119.15% 198.32% at 105.13% 105.06%, #081C24 0%, #0A0A0A 100%)',
+					overflowY: 'hidden',
 				}
 			}
 		}

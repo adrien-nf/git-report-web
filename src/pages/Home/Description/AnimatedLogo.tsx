@@ -45,17 +45,17 @@ function AnimatedLogo() {
         </g>
         <defs>
           <radialGradient id="base_gradient" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(458 330.5) rotate(-145.311) scale(580.721 1283.46)">
-            <stop stop-color="#00C2FF" stop-opacity="0.1" />
-            <stop stop-opacity="0.2" />
-            <stop offset="1" stop-color="#6FDCFF" stop-opacity="0.13" />
+            <stop stopColor="#00C2FF" stopOpacity="0.1" />
+            <stop stopOpacity="0.2" />
+            <stop offset="1" stopColor="#6FDCFF" stopOpacity="0.13" />
           </radialGradient>
           <radialGradient ref={gradientRef} id="circle_hover" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse">
-            <stop offset="15%" stop-color="rgba(0, 194, 255, 0.15)" />
-            <stop offset="33%" stop-color="rgba(0, 194, 255, 0.10)" />
-            <stop offset="49.6%" stop-color="rgba(0, 194, 255, 0.07)" />
-            <stop offset="62.2%" stop-color="rgba(0, 194, 255, 0.04)" />
-            <stop offset="74.8%" stop-color="rgba(0, 194, 255, 0.01)" />
-            <stop offset="100%" stop-color="rgba(0, 194, 255, 0)" />
+            <stop offset="15%" stopColor="rgba(0, 194, 255, 0.15)" />
+            <stop offset="33%" stopColor="rgba(0, 194, 255, 0.10)" />
+            <stop offset="49.6%" stopColor="rgba(0, 194, 255, 0.07)" />
+            <stop offset="62.2%" stopColor="rgba(0, 194, 255, 0.04)" />
+            <stop offset="74.8%" stopColor="rgba(0, 194, 255, 0.01)" />
+            <stop offset="100%" stopColor="rgba(0, 194, 255, 0)" />
           </radialGradient>
         </defs>
       </DynamicSvg>
