@@ -10,8 +10,13 @@ import WatchInAction from './WatchInAction/WatchInAction';
 import Description from './Description/Description';
 
 const BoxContainer = styled(Box)(({ theme }) => ({
-	paddingTop: theme.spacing(11),
 	paddingBottom: theme.spacing(11),
+	[theme.breakpoints.up("xs")]: {
+		paddingTop: theme.spacing(1),
+	},
+	[theme.breakpoints.up("md")]: {
+		paddingTop: theme.spacing(11),
+	},
 }))
 
 const HomeFooter = styled(Footer)(() => ({
@@ -32,8 +37,8 @@ export default function Home() {
 				</Container>
 			</BoxContainer>
 			<HomeFooter>
-					<GithubLink />
-					<MadeBy />
+				<GithubLink />
+				<MadeBy />
 			</HomeFooter>
 		</React.Fragment >
 	);
