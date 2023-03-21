@@ -13,12 +13,14 @@ export const darkTheme = createTheme({
 	},
 	typography: {
 		h1: {
-			marginBottom: '25px',
+			marginBottom: '40px',
 			fontFamily: '\'Kanit\', sans-serif',
-			fontWeight: 400,
+			fontWeight: 300,
+			fontSize: '3rem',
+			lineHeight: 1.1,
 		},
 		h2: {
-			fontSize: '22px',
+			fontSize: '26px',
 			fontWeight: 400,
 			marginBottom: '25px',
 			fontFamily: '\'Kanit\', sans-serif'
@@ -29,15 +31,6 @@ export const darkTheme = createTheme({
 		},
 		fontFamily: '\'Open Sans\', sans-serif',
 		fontSize: 14,
-	},
-	breakpoints: {
-		values: {
-			xs: 0,
-			sm: 600,
-			md: 900,
-			lg: 1100,
-			xl: 1350,
-		},
 	},
 	components: {
 		MuiSlider: {
@@ -76,20 +69,37 @@ export const darkTheme = createTheme({
 			}
 		},
 		MuiButton: {
+			defaultProps: {
+				color: "secondary",
+				variant: 'contained',
+			},
 			styleOverrides: {
 				root: {
-					fontSize: '16px',
 					fontFamily: '\'Kanit\', sans-serif',
-					textTransform: "none",
+					textTransform: 'none',
+					fontWeight: 'normal',
+					padding: '5px 20px',
+					borderRadius: '4px',
+					fontSize: '16px',
 					boxShadow: 'none',
 					':hover': {
 						boxShadow: 'none',
 					}
-        }
-	    }
+				},
+				containedSecondary: {
+					backgroundColor: '#101E21',
+					color: '#9AE7FF',
+					':hover': {
+						backgroundColor: '#9AE7FF25',
+					}
+				}
+			}
 		},
 		MuiCssBaseline: {
 			styleOverrides: {
+				html: {
+					scrollBehavior: 'smooth',
+				},
 				body: {
 					backgroundImage: 'radial-gradient(119.15% 198.32% at 105.13% 105.06%, #081C24 0%, #0A0A0A 100%)',
 					overflowY: 'hidden',

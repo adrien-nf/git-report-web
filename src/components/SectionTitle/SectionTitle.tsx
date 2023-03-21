@@ -2,11 +2,13 @@ import { Box, styled, Typography } from "@mui/material"
 
 
 const StyledTitle = styled(Typography)(() => ({
+	marginLeft: '6px',
 	"&::before": {
 		content: '""',
 		position: "absolute",
-		height: "1em",
-		width: "100%",
+		height: ".7em",
+		width: "95%",
+		top: 4,
 		marginLeft: "-6px",
 		backgroundColor: "rgba(0, 194, 255, 0.21)",
 		borderRadius: "2px",

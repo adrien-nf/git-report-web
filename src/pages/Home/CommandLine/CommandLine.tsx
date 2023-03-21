@@ -1,34 +1,43 @@
-import { CircularProgress, Stack, styled, Switch, Typography } from "@mui/material"
-import { useContext, useState } from "react"
+import { CircularProgress, IconButton, Stack, styled, Switch, Typography } from "@mui/material"
+import { useContext, useMemo, useState } from "react"
 import { DataContext } from "../../../contexts/DataContext/DataContext"
 import ThatsYou from "../../../assets/ThatsYou.svg";
 import SectionTitle from "../../../components/SectionTitle/SectionTitle";
 import LinkBadge from "../../../components/LinkBadge/LinkBadge";
-import ValidationTooltip from "../../../components/ValidationTooltip/ValidationTooltip";
+import { useScriptUrl } from "../../../contexts/ScriptUrlContext/ScriptUrlContext";
+import { ContentCopy } from "@mui/icons-material";
 
 const BlackPaperWithoutThatsYou = styled('div')(({ theme }) => ({
 	background: 'rgba(0, 0, 0, 0.42)',
 	backdropFilter: 'blur(2px)',
 	borderRadius: 2,
 	padding: theme.spacing(3),
-	cursor: "pointer",
-	fontSize: "18px",
+	fontSize: '18px',
 	fontFamily: '\'Ubuntu Mono\', monospace',
-	"&::before": {
+	display: 'flex',
+	alignItems: 'center',
+	justifyContent : 'space-between',
+	gap: '15px',
+	flexWrap: 'wrap',
+	'& > span': {
+		position: 'relative',
+		wordBreak: 'break-all',
+	},
+	'& > span::before': {
 		content: '"$"',
 		marginRight: theme.spacing(2),
 		marginLeft: theme.spacing(1),
-		color: theme.palette.primary.main
+		color: theme.palette.primary.main,
 	},
 }));
 
 const BlackPaper = styled(BlackPaperWithoutThatsYou)(() => ({
-	"&::after": {
+	'& > span::after': {
 		content: `url(${ThatsYou})`,
 		fontFamily: "Caveat",
 		fontSize: "1.5em",
-		marginTop: "1em",
-		marginLeft: "-5em",
+		bottom: -55,
+		right: 20,
 		position: "absolute",
 	}
 }));
@@ -65,95 +74,66 @@ const ModeSwitch = styled(Switch)(({ theme }) => ({
 }));
 
 export default function CommandLine() {
-	const { eventId, isError, isLoading } = useContext(DataContext);
-
-	const [isAutomatic, setIsAutomatic] = useState(true);
-
-	const getEventId = () => (isError || !isAutomatic) ? "static" : eventId!;
-
-	const getUrl = (): string => {
-		return window.location.href + "api/script/";
-	}
-
-	const getFullUrl = (): string => {
-		return window.location.href + "api/script/" + getEventId();
-	}
+	const { isError, isLoading } = useContext(DataContext);
+	const { isAutomatic, setIsAutomatic, fullUrl } = useScriptUrl();
 
 	return (
 		<section id="script">
 			<Stack
 				marginBottom="25px"
 				justifyContent="space-between"
-				direction={{
-					xs: "column",
-					sm: "row"
-				}}
-				alignItems="center"
+				direction={{ xs: 'column', sm: 'row' }}
+				alignItems={{ xs: 'start', sm: 'end' }}
+				gap="25px"
 			>
 				<SectionTitle style={{ marginBottom: 0 }}>Get started now !</SectionTitle>
-				{(!isError && !isLoading) && (
-					<Stack direction="row" alignItems="center" gap="10px">
-						<Typography color="#E0E0E0" variant="body1">Manual</Typography>
-						<ModeSwitch value={isAutomatic} onChange={(event) => setIsAutomatic(event.target.checked)} defaultChecked />
-						<Typography color="#E0E0E0" variant="body1">Automatic</Typography>
-					</Stack>
-				)}
-				<LinkBadge text="Show the full script" link={getFullUrl()} />
+				<Stack
+					direction="row"
+					gap={{ xs: '15px', sm: '25px' }}
+				>
+					{(!isError && !isLoading) && (
+						<Stack direction="row" alignItems="center" gap="10px">
+							<ModeSwitch id="autoSwitch" checked={isAutomatic} onChange={(event) => setIsAutomatic(event.target.checked)} />
+							<Typography htmlFor="autoSwitch" color="#E0E0E0" component="label">Automatic</Typography>
+						</Stack>
+					)}
+					<LinkBadge text="Show the full script" link={fullUrl} />
+				</Stack>
 			</Stack>
 			{
-				<LoadingOrScript getUrl={getUrl} isAutomatic={isAutomatic} getEventId={getEventId} />
+				<LoadingOrScript />
 			}
 		</section>
 	)
 }
 
-const LoadingOrScript = (props: {
-	getUrl: () => string,
-	isAutomatic: boolean,
-	getEventId: () => string,
-}) => {
+const LoadingOrScript = () => {
 	const { isLoading } = useContext(DataContext);
 
 	return isLoading ? (
-		<CircularProgress
-			style={{
-				alignSelf: "center"
-			}}
-		/>
+		<CircularProgress style={{ alignSelf: "center" }} />
 	) : (
-		<AutomaticOrStatic getUrl={props.getUrl} isAutomatic={props.isAutomatic} getEventId={props.getEventId} />
-	)
+		<AutomaticOrStatic />
+	);
 }
 
-const AutomaticOrStatic = (props: {
-	getUrl: () => string,
-	isAutomatic: boolean,
-	getEventId: () => string,
-}) => {
-	const [isCopied, setIsCopied] = useState(false);
-
-	const copy = () => {
-		navigator.clipboard.writeText(`sh -c "$(curl -fsSL ${props.getUrl()}${props.getEventId()})"`);
-		setIsCopied(true);
-	}
-
-	const getCleanUrl = () => {
-		return props.getUrl().replace(/http.?:\/\//g, "");
-	}
+const AutomaticOrStatic = () => {
+	const { baseUrl, identifier, handleCopy } = useScriptUrl();
+	const cleanUrl = baseUrl.replace(/http.?:\/\//g, "");
+	const DynamicBlackPaper = identifier === "static" ? BlackPaperWithoutThatsYou : BlackPaper;
 
 	return (
-		<ValidationTooltip isValidated={isCopied} setIsValidated={setIsCopied} validatedTitle="Copied" notValidatedTitle="Click to copy">
-			{
-				props.getEventId() === "static" ? (
-					<BlackPaperWithoutThatsYou onClick={copy}>
-						<span>sh -c "$(curl -fsSL {getCleanUrl()}<span style={{ color: "#9AE7FF" }}>{props.getEventId()}</span>)"</span>
-					</BlackPaperWithoutThatsYou>
-				) : (
-					<BlackPaper onClick={copy}>
-						<span>sh -c "$(curl -fsSL {getCleanUrl()}<span style={{ color: "#9AE7FF" }}>{props.getEventId()}</span>)"</span>
-					</BlackPaper>
-				)
-			}
-		</ValidationTooltip>
-	)
+		<DynamicBlackPaper>
+			<span>
+				sh -c "$(curl -fsSL {cleanUrl}
+				<span style={{ color: "#9AE7FF" }}>
+					{identifier}
+				</span>
+				)"
+			</span>
+			<IconButton onClick={handleCopy} color="primary">
+				<ContentCopy />
+			</IconButton>
+		</DynamicBlackPaper>
+	);
 }

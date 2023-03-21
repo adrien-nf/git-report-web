@@ -8,11 +8,20 @@ import MadeBy from '../../components/MadeBy/MadeBy';
 import HowDoesItWork from './HowDoesItWork/HowDoesItWork';
 import WatchInAction from './WatchInAction/WatchInAction';
 import Description from './Description/Description';
+import { ScriptUrlContextProvider } from '../../contexts/ScriptUrlContext/ScriptUrlContext';
 
-const BoxContainer = styled(Box)(({ theme }) => ({
-	paddingTop: theme.spacing(11),
-	paddingBottom: theme.spacing(11),
-}))
+const paddingInline = {
+	xl: '250px',
+	lg: '100px',
+	md: '60px',
+	xs: '20px',
+};
+
+const paddingBlock = {
+	md: '150px',
+	sm: '100px',
+	xs: '70px',
+};
 
 const HomeFooter = styled(Footer)(() => ({
 	textAlign: 'center',
@@ -21,19 +30,22 @@ const HomeFooter = styled(Footer)(() => ({
 export default function Home() {
 	return (
 		<React.Fragment>
-			<BoxContainer>
-				<Container maxWidth="xl">
-					<Stack direction="column" spacing={10}>
+			<Box sx={{ paddingInline, paddingBlock }}>
+				<Stack direction="column" spacing={12}>
+					<ScriptUrlContextProvider>
 						<Description />
 						<CommandLine />
-						<HowDoesItWork />
-						<WatchInAction />
-					</Stack>
-				</Container>
-			</BoxContainer>
+					</ScriptUrlContextProvider>
+					<HowDoesItWork />
+					<WatchInAction />
+				</Stack>
+			</Box>
 			<HomeFooter>
+				<Box display="flex" gap="10px" justifyContent="center" alignItems="center">
 					<GithubLink />
-					<MadeBy />
+					<small>v{__APP_VERSION__}</small>
+				</Box>
+				<MadeBy />
 			</HomeFooter>
 		</React.Fragment >
 	);

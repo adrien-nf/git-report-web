@@ -1,6 +1,5 @@
-import { Stack, Slider, styled } from "@mui/material";
+import { Stack, Slider, styled, Button } from "@mui/material";
 import { Dispatch, SetStateAction, useContext, useEffect, useState } from "react";
-import ButtonBadge from "../../../../components/ButtonBadge/ButtonBadge";
 import SectionTitle from "../../../../components/SectionTitle/SectionTitle";
 import { DataContext } from "../../../../contexts/DataContext/DataContext";
 import { ParsedProject } from "../../../../types/ParsedProject";
@@ -116,10 +115,10 @@ export default function Filters(props: {
 				/>
 			</SliderContainer>
 			<Stack direction="row" columnGap={2}>
-				<ButtonBadge onClick={() => updateToDaysAgo(7)}>1 week</ButtonBadge>
-				<ButtonBadge onClick={() => updateToDaysAgo(14)}>2 weeks</ButtonBadge>
-				<ButtonBadge onClick={updateToLastMonth}>1 month</ButtonBadge>
-				<ButtonBadge onClick={updateToAllTime}>All time</ButtonBadge>
+				<Button onClick={() => updateToDaysAgo(7)}>1 week</Button>
+				<Button onClick={() => updateToDaysAgo(14)}>2 weeks</Button>
+				<Button onClick={updateToLastMonth}>1 month</Button>
+				<Button onClick={updateToAllTime}>All time</Button>
 			</Stack>
 		</section>
 	)

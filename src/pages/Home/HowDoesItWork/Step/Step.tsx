@@ -3,7 +3,9 @@ import { Box, Stack, styled } from "@mui/material";
 const StyledBox = styled(Box)(({ theme }) => ({
 	background: "rgba(0, 209, 255, 0.03)",
 	flexGrow: 1,
-	padding: theme.spacing(2),
+	padding: theme.spacing(3),
+	border: '1px solid #00C2FF11',
+	borderRadius: '2px',
 }))
 
 const StepTitle = styled(Stack)(() => ({
