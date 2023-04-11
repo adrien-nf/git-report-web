@@ -7,6 +7,7 @@ const StyledFooter = styled(('footer'))(({ theme }) => ({
 	paddingBottom: theme.spacing(7),
 	width: "100%",
 	fontSize: '18px',
+	paddingInline: '15px',
 }))
 
 function Footer(props: {

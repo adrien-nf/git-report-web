@@ -13,11 +13,18 @@ const StyledIconButton = styled(Button)(() => ({
 
 const TopicButton = styled(Button)<{ selected: boolean }>(({ selected }) => ({
 	backgroundColor: selected ? "#092D39" : "#0B1316",
+	flex: '1 1',
+	whiteSpace: 'nowrap',
 	color: selected ? "#9AE7FF" : "white",
 	':hover': {
 		backgroundColor: selected ? "#092D39" : "#101E21",
 	},
 }));
+
+const ButtonsContainer = styled(ButtonGroup)({
+	display: 'flex',
+	flex: '1 1',
+});
 
 export default function Topics(props: {
 	reportData: ReportData,
@@ -40,7 +47,7 @@ export default function Topics(props: {
 			<Stack direction="row" gap="12px" flexWrap="wrap">
 				{
 					(Array.from(props.reportData.projects.values())).map(e => (
-						<ButtonGroup size="small" aria-label="small button group" key={e.name}>
+						<ButtonsContainer size="small" aria-label="small button group" key={e.name}>
 							<TopicButton
 								selected={props.selectedProject === e}
 								variant="contained"
@@ -56,7 +63,7 @@ export default function Topics(props: {
 									)
 								}
 							</StyledIconButton>
-						</ButtonGroup>
+						</ButtonsContainer>
 					))
 				}
 			</Stack>

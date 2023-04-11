@@ -13,9 +13,10 @@ const FixedCopyContainer = styled('div')(({ theme }) => ({
   bottom: 25,
   right: 35,
   display: 'flex',
-  background: '#071115;',
+  background: '#071115',
   borderRadius: '10px',
-  padding: '6px 10px'
+  padding: '6px 10px',
+  border: '1px solid #00C2FF11',
 }));
 
 const CopyButton = styled(IconButton)(() => ({

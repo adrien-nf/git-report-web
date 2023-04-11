@@ -1,5 +1,5 @@
-import { Stack, Slider, styled, Button } from "@mui/material";
-import { Dispatch, SetStateAction, useContext, useEffect, useState } from "react";
+import { Stack, Slider, styled, Button, Box } from "@mui/material";
+import { Dispatch, SetStateAction, useContext, useEffect, useMemo, useState } from "react";
 import SectionTitle from "../../../../components/SectionTitle/SectionTitle";
 import { DataContext } from "../../../../contexts/DataContext/DataContext";
 import { ParsedProject } from "../../../../types/ParsedProject";
@@ -9,6 +9,33 @@ import { ReportData } from "../../../../types/ReportData";
 const SliderContainer = styled('div')(() => ({
 	marginTop: '-14px',
 }));
+
+const ControlsContainer = styled('div')({
+	display: 'flex',
+	alignItems: 'center',
+	justifyContent: 'space-between',
+	gap: '15px',
+	flexWrap: 'wrap',
+});
+
+const ButtonsContainer = styled('div')({
+	display: 'flex',
+	alignItems: 'center',
+	justifyContent: 'space-between',
+	gap: '8px',
+	flexWrap: 'wrap',
+	'& > button': {
+		flex: '1 1',
+		whiteSpace: 'nowrap',
+	}
+});
+
+const StatsContainer = styled('div')({
+	'& > strong': {
+		fontFamily: '\'Kanit\', sans-serif',
+		fontSize: '18px',
+	}
+});
 
 export default function Filters(props: {
 	reportData: ReportData,
@@ -95,6 +122,15 @@ export default function Filters(props: {
 		setPickedDates([0, newDates.length - 1])
 	}, [projects])
 
+	const [projectsNumber, totalCommitsNumber] = useMemo(() => {
+		const { projects } = props.reportData;
+		const commitsNumber = Array.from(projects.values()).reduce((acc, project) => {
+			acc += project.commits.split('\n').length;
+			return acc;
+		}, 0);
+		return [projects.size, commitsNumber];
+	}, [props.reportData]);
+
 	return (
 		<section id="date">
 			<SectionTitle>Date range</SectionTitle>
@@ -114,12 +150,17 @@ export default function Filters(props: {
 					onChangeCommitted={handleDateRangeChangeCommitted}
 				/>
 			</SliderContainer>
-			<Stack direction="row" columnGap={2}>
-				<Button onClick={() => updateToDaysAgo(7)}>1 week</Button>
-				<Button onClick={() => updateToDaysAgo(14)}>2 weeks</Button>
-				<Button onClick={updateToLastMonth}>1 month</Button>
-				<Button onClick={updateToAllTime}>All time</Button>
-			</Stack>
+			<ControlsContainer>
+				<ButtonsContainer>
+					<Button onClick={() => updateToDaysAgo(7)}>1 week</Button>
+					<Button onClick={() => updateToDaysAgo(14)}>2 weeks</Button>
+					<Button onClick={updateToLastMonth}>1 month</Button>
+					<Button onClick={updateToAllTime}>All time</Button>
+				</ButtonsContainer>
+				<StatsContainer>
+					Found <strong>{totalCommitsNumber}</strong> commits over <strong>{projectsNumber}</strong> repositories
+				</StatsContainer>
+			</ControlsContainer>
 		</section>
 	)
 }

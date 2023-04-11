@@ -12,7 +12,7 @@ export default function Report(props: {
 	reportData: ReportData,
 }) {
 	return (
-		<Stack spacing={2}>
+		<Stack spacing={2} padding={3}>
 			{
 				props.reportData.before && (
 					<SpacedSpan style={{
