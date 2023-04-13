@@ -8,6 +8,8 @@ This is the front-end repository. You may want to visit the <a href="https://git
 
 <a href="https://git-report.com/">GitReport</a> is a web app that allows for an easy report generation from your git commits.
 
+With our command-line script, you can quickly generate detailed reports of your commits. Easily see what you worked on and how much time you spent on it!
+
 ## Demo
 
 <img src="https://git-report.com/demo-bd290955.gif"/>
