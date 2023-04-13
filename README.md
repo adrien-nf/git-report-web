@@ -10,6 +10,8 @@ This is the front-end repository. You may want to visit the <a href="https://git
 
 ## Demo
 
+<img src="https://git-report.com/demo-bd290955.gif"/>
+
 ## Contributing
 
 Any contribution is welcome and greatly appreciated. Whether it be for a typo, translation, feature... 
