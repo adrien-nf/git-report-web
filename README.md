@@ -18,4 +18,3 @@ Any contribution is welcome and greatly appreciated. Whether it be for a typo, t
 
 ## License
 
-## Contact
