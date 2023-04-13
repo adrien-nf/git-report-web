@@ -1,7 +1,7 @@
 <div align="center">
 	<a href="https://git-report.com/"><img width="192" src="https://raw.githubusercontent.com/adrien-nf/git-report-web/master/public/logo192.png" alt="GitReport"></a>
 	<br/>
-This is the front-end repository. You may want to visit the [back-end repository](https://github.com/nathangobinet/git-report-api).
+This is the front-end repository. You may want to visit the <a href="https://github.com/nathangobinet/git-report-api">back-end repository.
 </div>
 
 # GitReport
