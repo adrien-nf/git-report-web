@@ -1,7 +1,7 @@
 {
   "routes": [
     {
-      "route": "/api/{*rest}",
+      "route": "/api/{*rest}/",
       "rewrite": "https://git-report-b5angcgsgqdwezc7.francecentral-01.azurewebsites.net/{rest}"
     }
   ]
