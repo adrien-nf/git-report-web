@@ -1,8 +1,0 @@
-{
-  "routes": [
-    {
-      "route": "/api/*",
-      "rewrite": "https://git-report-b5angcgsgqdwezc7.francecentral-01.azurewebsites.net/status"
-    }
-  ]
-}
